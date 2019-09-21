@@ -1,3 +1,6 @@
 [submodule "apps/bamapp"]
 	path = apps/bamapp
 	url = git@github.com:BryanApellanes/BamApp.git
+[submodule "common/bamjs"]
+	path = common/bamjs
+	url = git@github.com:BryanApellanes/bam.js.git
