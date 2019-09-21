@@ -1,3 +1,3 @@
-[submodule "apps/BamApp"]
-	path = apps/BamApp
+[submodule "apps/bamapp"]
+	path = apps/bamapp
 	url = git@github.com:BryanApellanes/BamApp.git
