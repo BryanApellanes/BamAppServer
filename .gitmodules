@@ -1,3 +1,6 @@
 [submodule "common/bamjs"]
 	path = common/bamjs
 	url = git@github.com:BryanApellanes/bam.js.git
+[submodule "apps/admin/js/bam"]
+	path = apps/admin/js/bam
+	url = git@github.com:BryanApellanes/bam.js.git
