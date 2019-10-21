@@ -20,4 +20,8 @@ git push
 
 cd ../../
 
+git add .
+git commit -m 'synced bamapp template'
+git push
+
 fi
