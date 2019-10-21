@@ -9,8 +9,6 @@ then
 
 else
 
-git merge dev --quiet
-
 cd ./apps/bamapp/
 git checkout -f bamapp
 
