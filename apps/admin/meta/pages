@@ -1,0 +1,22 @@
+[
+  "start",
+  "tests",
+  "Admin/main",
+  "Admin/tests",
+  "Admin/PlanDocuments/metro4-grid-example",
+  "Admin/PlanDocuments/PlanDocuments",
+  "Vimly/main",
+  "Vimly/tests",
+  "Vimly/PlanLinks/planlinks",
+  "Vimly/PlanDocuments/metro4-grid-example",
+  "Vimly/PlanDocuments/PlanLinks",
+  "Vimly/PlanDocuments/PlanDocuments-tests",
+  "Vimly/PlanDocuments/PlanDocuments",
+  "Vimly/PlanDocuments/Activity/Plans",
+  "Vimly/PlanDocuments/Activity/Documents",
+  "Vimly/PlanDocuments/Activity/Links",
+  "Vimly/CaseManagement/main",
+  "Vimly/CaseManagement/tests",
+  "Vimly/MAIN/main",
+  "Vimly/MAIN/tests"
+]
