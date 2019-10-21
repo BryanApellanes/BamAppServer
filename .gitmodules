@@ -4,3 +4,6 @@
 [submodule "apps/bamapp"]
 	path = apps/bamapp
 	url = https://github.com/BryanApellanes/BamApp.git
+[submodule "apps/admin/js/bam"]
+	path = apps/admin/js/bam
+	url = https://github.com/BryanApellanes/bam.js.git

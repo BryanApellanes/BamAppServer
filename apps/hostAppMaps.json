@@ -1,5 +1,13 @@
 [
   {
+    "Host": "bamapp",
+    "AppName": "bamapp"
+  },
+  {
+    "Host": "admin",
+    "AppName": "admin"
+  },
+  {
     "Host": "vimly",
     "AppName": "vimly"
   }
