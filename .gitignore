@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 
 apps/bamapp
+apps/admin/appConf.json
+apps/admin/web-host.json
