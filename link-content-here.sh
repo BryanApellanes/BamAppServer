@@ -2,7 +2,7 @@
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]
 then
-    printf "usage: link.sh\r\n"
+    printf "usage: link-content-here.sh\r\n"
     printf "\r\n"
     printf "Create a symlink at ~/.bam/content that targets the current directory.  If there is already a symlink at ~/.bam/content it is deleted and\r\n"
     printf "replaced by a link targeting `pwd`.\r\n\r\n"
