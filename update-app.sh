@@ -2,7 +2,7 @@
 
 if  [[ -z "$1" ]]
     then
-        APPNAME=$(<appname)
+        APPNAME=$(<defaultappname)
 else
     APPNAME=$1
 fi
