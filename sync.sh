@@ -4,10 +4,12 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]
 then
     printf "usage: sync.sh\r\n"
     printf "\r\n"
-    printf "Copy ./apps/admin/ to ./apps/bamapp/ and commit to remote."
+    printf "Merge the dev branch then copy ./apps/admin/ to ./apps/bamapp/ and commit to remote."
     printf "\r\n"
 
 else
+
+git merge dev
 
 cd ./apps/bamapp/
 git checkout -f bamapp
