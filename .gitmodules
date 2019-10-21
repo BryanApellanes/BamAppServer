@@ -1,6 +1,3 @@
-[submodule "apps/vimly"]
-	path = apps/vimly
-	url = git@github.com:BryanApellanes/BamApp.git
 [submodule "common/bamjs"]
 	path = common/bamjs
 	url = git@github.com:BryanApellanes/bam.js.git
