@@ -1,1 +1,1 @@
-# Vimly-Admin
+# Admin
