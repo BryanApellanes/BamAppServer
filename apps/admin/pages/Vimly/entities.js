@@ -1,8 +1,9 @@
 var entities = (function(){
-    var baseUrl = 'https://quoting-api-proj05.prod.simon365.com/entity/v1/entity',
-        authToken = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwNjE4YzBiNS0wYmExLTQ0NmQtOTBkZS0wNWYyOGJiY2FjMGYiLCJzdWIiOiJiZWJjYWQ4NS02NDUxLTQwNmMtYTMzZi02OWM4MjlmZWI5MzAiLCJpc3MiOiJodHRwczovL3F1b3RpbmctYXBpLXByb2owNS5wcm9kLnNpbW9uMzY1LmNvbSIsImlhdCI6MTU1OTA1NTY5OSwibmJmIjoxNTU5MDU1Mzk5LCJleHAiOjE1OTA2MTI2MjUsInNzIjpudWxsLCJ2ZXIiOjEsInR5cCI6IlNFUlZJQ0VfQUNDT1VOVCIsInJvbCI6W119.UtRyBC1rRQ95DnN1xOYiGXc1-JoVjXzUTEv97q28CT4'
+    var baseUrl = null,
+        authToken = null,
         _ = require('lodash'),
-        xhr = require('../../js/bam/system/xhr')({lodash: _})
+        environments = require('./environments.js'),
+        xhr = require('../../js/bam/system/xhr')({lodash: _}),
         typeNameMap =  {
             "Application": "Application",
             "Case": "TaskCase",
@@ -43,7 +44,7 @@ var entities = (function(){
             return baseUrl;
         },
         setAuth: function(token) {
-            _headers.Authorization = `Bearer ${token}`;
+            _headers.Authorization = token;
         },
         "new": function(typeName) {
             var val = typeName;
@@ -89,7 +90,6 @@ var entities = (function(){
         }
     }
 
-    entities.setAuth(authToken);
     return _.clone(entities);
 })()
 

@@ -46,7 +46,7 @@ $(document).ready(function(){
     }
 
     var serffPage = {
-        load: function(){
+        ready: function(){
             $("#effectiveYear").val(new Date().getFullYear() + 1);
             this
                 .loadCostShareVarianceData()
@@ -135,7 +135,7 @@ $(document).ready(function(){
         }
     }
 
-    serffPage.load();
+    serffPage.ready();
 
     window.serffPage = serffPage;
 })

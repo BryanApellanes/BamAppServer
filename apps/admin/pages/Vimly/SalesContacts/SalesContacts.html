@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>Sales Contacts</title>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/mocha@4.0.1/mocha.css" />
+        <link rel="stylesheet" type="text/css" href="../css/site.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="./SalesContacts.css"
+        <link rel="stylesheet" type="text/css" href="../css/datatables.min.css" />
+    </head>
+    <body style="margin: 10px">
+            <h1>Sales Contacts</h1>
+            <div id="main">
+                <select id="vimlyEnvironment">
+                    <option value="local">local</option>
+                    <option value="proj05" selected="selected">proj05</option>
+                    <option value="staging">staging</option>
+                    <option value="prod">prod</option>
+                </select>
+                <div class="container">
+                    <div class="row">
+                      <div class="col-6">
+                            <h1>Entity</h1>
+                        </br>
+                            <input type="text" name="planSponsorId" value="98bfd730-80f2-4b52-bdef-d2e63df3f678" />
+                            <button class="btn btn-primary" id="loadPlanSponsorButton">Load Plan Sponsor</button>
+                            
+                        </br>
+                            <input type="text" name="applicationId" value="2bdbc322-57c9-47e3-99ad-1d3be48cb353" />
+                            <button class="btn btn-primary" id="loadApplicationButton">Load Application</button>
+                        </div> 
+                        <div class="col-6">
+                            <h1>Quoting</h1>
+                        </br>
+                            <input type="text" name="quotingPlanSponsorId" value="98bfd730-80f2-4b52-bdef-d2e63df3f678" />
+                            <button class="btn btn-primary" id="quotingLoadPlanSponsorButton">Load Plan Sponsor</button>
+                            
+                        </br>
+                            <input type="text" name="quotingApplicationId" value="2bdbc322-57c9-47e3-99ad-1d3be48cb353" />
+                            <button class="btn btn-primary" id="quotingLoadApplicationButton">Load Application</button>
+
+                        </div>
+                    </div>  
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="entityDisplay">                            
+                            </div>
+                            <hr />
+                            <div id="entityPlanSponsorDisplay">
+                            </div>
+                            <div id="entityApplicationDisplay">                                
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Contacts</h2>
+                            <div id="contactsDisplay">
+
+                            </div>
+                        </div>
+                    </div>                  
+                </div>                
+            </div>
+
+<!-- handlebars templates -->
+<div hidden name="handlebars-templates"> 
+<span name="entityInput">
+    <div>
+        <h2>Entity</h2>
+    {{#each properties}}
+        <label>{{name}}</label><input type="text" name="{{name}}" value="{{value}}" /> </br>
+    {{/each}}
+    </div>
+</span>
+<span name="planSponsorDisplay">
+    <div>
+        <h2>Plan Sponsor</h2>
+        <label>Business Name</label><input type="text" value="{{businessName}}" /> </br>
+    </div>
+    <hr />
+</span>
+<span name="applicationDisplay">
+    <div>
+        <h2>Application</h2>
+        <label>Friendly Id</label><input type="text" value="{{friendlyId}}" />
+    </div>
+    <hr />
+</span>
+<span name="contactDisplay">
+    <div>
+        <h2>{{contactTypes}}</h2>
+        <label>First Name</label><input type="text" readonly="readyonly" value="{{firstName}}" /> </br>
+        <label>Last Name</label><input type="text" readonly="readonly" value="{{lastName}}" /> </br>
+        <label>Communications</label><input type="text" readonly="readonly" value="{{communications}}" /> </br>
+    </div>
+</span>
+</div> 
+<!-- / handlebars templates -->
+            <script 
+                src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous">
+            </script>   
+            <script src="/dust.js"></script>   
+            <script src="/lodash.full.js"></script> 
+            <script src="/dist/Vimly/main.bundle.js"></script>
+            <script src="/serviceproxy/proxies.js"></script>
+            <script src="/Datatables/datatables.min.js"></script>
+    </body>
+</html>

@@ -36337,7 +36337,7 @@ $(document).ready(function(){
     }
 
     var serffPage = {
-        load: function(){
+        ready: function(){
             $("#effectiveYear").val(new Date().getFullYear() + 1);
             this
                 .loadCostShareVarianceData()
@@ -36426,11 +36426,224 @@ $(document).ready(function(){
         }
     }
 
-    serffPage.load();
+    serffPage.ready();
 
     window.serffPage = serffPage;
 })
-},{"../../../js/bam/ui/dataTableTools.js":47,"../environments.js":94}],93:[function(require,module,exports){
+},{"../../../js/bam/ui/dataTableTools.js":47,"../environments.js":96}],93:[function(require,module,exports){
+$(document).ready(function(){
+    var _ = require("lodash"),
+        envs = require('../environments.js'),
+        dataTableTools = require('../../../js/bam/ui/dataTableTools.js'),
+        handlebars = require("handlebars"),
+        entities = require("../entities.js")
+        quoting = require("../quoting.js");
+    
+    function getAuthHeader(){
+        var selectedEnv = $("#vimlyEnv option:selected").text(); 
+        envs.setCurrent(selectedEnv);
+        return envs.getAuthorizationHeader(selectedEnv);        
+    }
+
+    function setEnvironment(){
+        var selectedEnv = $("#vimlyEnvironment option:selected").text(); 
+        envs.setCurrent(selectedEnv);
+        entities.setBaseUrl(envs.getEntityPath());
+        quoting.setBaseUrl(envs.getQuotingPath());
+    }
+
+    function getEntityType(){
+        return $("select[name=entityType]").val();
+    }
+
+    function getEntityId(){
+        return $("input[name=entityId]").val();
+    }
+
+    function getPlanSponsorId(){
+        return $("input[name=planSponsorId]").val();
+    }
+
+    function getApplicationId(){
+        return $("input[name=applicationId]").val();
+    }
+
+    function getQuotingApplicationId(){
+        return $("input[name=quotingApplicationId]").val();
+    }
+
+    function getQuotingPlanSponsorId(){
+        return $("input[name=quotingPlanSponsorId]").val();
+    }
+
+    function toNameValuePairs(obj){
+        var results = [];
+        for(var prop in obj){
+            results.push({name: prop, value: obj[prop]});
+        }
+        return results;
+    }
+
+    function getPlanSponsorModel(planSponsorEntity) {
+        return {
+            businessName: planSponsorEntity.businessName.legalName,
+            contacts: getContactsModel(planSponsorEntity.contacts || [])
+        }
+    }
+
+    function getApplicationModel(applicationEntity){
+        return {
+            friendlyId: applicationEntity.friendlyId
+        }
+    }
+
+    function getContactsModel(contacts){
+        return _.map(contacts, function(ctc){
+            return {
+                firstName: ctc.firstName,
+                lastName: ctc.lastName,
+                contactTypes: (ctc.contactTypes || []).join(', '),
+                communications: _.map((ctc.communications || []), function(method) {
+                    return `${method.communicationLocation}: ${method.fax || method.email || method.phone || ""}`;
+                })
+            }
+        });
+    }
+
+    function setContactsDisplay(contacts){
+        var contactsModel = getContactsModel(contacts),
+            contactsHtml = '';
+
+        _.each(contactsModel, function(contactModel){
+            contactsHtml += salesContactsPage.template("contactDisplay", contactModel);
+        })
+        $("#contactsDisplay").html(contactsHtml);
+    }
+
+    function displayEntity(entity){    
+        var entityHtml = salesContactsPage.template("entityInput", {properties: toNameValuePairs(entity)});
+        $("#entityDisplay").html(entityHtml);
+    }
+
+    function displayApplication(application) {
+        var applicationModel = getApplicationModel(application);
+        var applicationHtml = salesContactsPage.template("applicationDisplay", applicationModel);
+
+        $("#entityApplicationDisplay").html(applicationHtml);
+    }
+
+    function displayPlanSponsor(planSponsor) {
+        var planSponsorModel = getPlanSponsorModel(planSponsor);
+        var planSponsorHtml = salesContactsPage.template("planSponsorDisplay", planSponsorModel);
+
+        $("#entityPlanSponsorDisplay").html(planSponsorHtml);
+    }
+
+    function reset(){
+        $("#contactsDisplay").html('');
+        $("#entityDisplay").html('');
+        $("#entityApplicationDisplay").html('');
+        $("#entityPlanSponsorDisplay").html('');
+    }
+
+    var salesContactsPage = {
+        ready: function(){
+            this.attachEventHandlers();
+        },
+        template: function(name, data){
+            var templateSrc = $(`[name=${name}]`, $("[name=handlebars-templates]").first()).first().html();
+            var tmpl = handlebars.compile(templateSrc);
+            return tmpl(data);
+        },
+        attachEventHandlers: function(){
+            var _this = this;
+            $("#loadEntityButton").off("click").on("click", function(){
+                _this.loadEntity();
+            });
+            $("#loadPlanSponsorButton").off("click").on("click", function(){
+                _this.loadPlanSponsorEntity();
+            });
+            $("#loadApplicationButton").off("click").on("click", function(){
+                _this.loadApplicationEntity();
+            });
+            $("#quotingLoadPlanSponsorButton").off("click").on("click", function(){
+                _this.loadPlanSponsorModel();
+            });
+            $("#quotingLoadApplicationButton").off("click").on("click", function(){
+                _this.loadApplicationModel();
+            });
+        },
+        loadApplicationModel: function(){
+            reset();
+            setEnvironment();
+            envs.refreshToken()
+                .then(token => {
+                    quoting.setAuth(token);
+                    quoting.retrieve("applications", getQuotingApplicationId())
+                        .then(applicationModel =>{
+                            var application = applicationModel.applicationForm;
+                            displayApplication(application);
+
+                            displayEntity(application);
+                            setContactsDisplay(application.contacts);
+                        })
+                })
+        },
+        loadPlanSponsorModel: function(){
+            reset();
+            setEnvironment();
+            envs.refreshToken()
+                .then(token => {
+                    quoting.setAuth(token);
+                    quoting.retrieve("planSponsors", getQuotingPlanSponsorId())
+                        .then(planSponsor => {
+                            displayPlanSponsor(planSponsor);
+
+                            displayEntity(planSponsor);
+
+                            setContactsDisplay(planSponsor.primaryCompany.contacts);
+                        })
+                })
+        },
+        loadApplicationEntity: function(){
+            reset();
+            setEnvironment();
+            envs.refreshToken()
+                .then(token => {
+                    entities.setAuth(token);
+                    entities.retrieve("Application", getApplicationId())
+                        .then(application => {
+                            displayApplication(application);
+
+                            displayEntity(application);
+
+                            setContactsDisplay(application.contacts);
+                        })
+                })
+        },
+        loadPlanSponsorEntity: function(){
+            reset();
+            setEnvironment();
+            envs.refreshToken()
+                .then(token => {
+                    entities.setAuth(token);
+                    entities.retrieve("PlanSponsor", getPlanSponsorId())
+                        .then(planSponsor => {
+                            displayPlanSponsor(planSponsor);
+
+                            displayEntity(planSponsor);
+
+                            setContactsDisplay(planSponsor.primaryCompany.contacts);
+                        })
+                })
+        }
+    }
+
+    salesContactsPage.ready();
+
+    window.salesContacts = salesContactsPage;
+})
+},{"../../../js/bam/ui/dataTableTools.js":47,"../entities.js":95,"../environments.js":96,"../quoting.js":98,"handlebars":77,"lodash":78}],94:[function(require,module,exports){
 var effectiveDate = (function(){
     var _ = require('lodash'),
         proto = {
@@ -36474,7 +36687,104 @@ module.exports = effectiveDate;
 if(typeof window !== 'undefined'){
     window.effectiveDate = effectiveDate;
 }
-},{"lodash":78}],94:[function(require,module,exports){
+},{"lodash":78}],95:[function(require,module,exports){
+var entities = (function(){
+    var baseUrl = null,
+        authToken = null,
+        _ = require('lodash'),
+        environments = require('./environments.js'),
+        xhr = require('../../js/bam/system/xhr')({lodash: _}),
+        typeNameMap =  {
+            "Application": "Application",
+            "Case": "TaskCase",
+            "Task": "TaskWorkItem"
+        };    
+
+    function getMetaProp(prop, entity) {
+        if(entity[prop]) {
+            return entity[prop];
+        }
+        if(entity[`@${prop}`]){
+            return entity[`@${prop}`];
+        }
+    }
+
+    function getMeta(entity) {
+        return {
+            id: getMetaProp("id", entity),
+            type: getMetaProp("type", entity),
+            schema: getMetaProp("schema", entity),
+            transaction: getMetaProp("transaction", entity),
+            owner: getMetaProp("owner", entity)
+        }
+    }
+
+    var _headers = {
+        Authorization: ""
+    }
+
+    var entities = {
+        getMeta: function(entity) {
+            return getMeta(entity);
+        },
+        setBaseUrl: function(url) {
+            baseUrl = url;
+        },  
+        getBaseUrl: function() {
+            return baseUrl;
+        },
+        setAuth: function(token) {
+            _headers.Authorization = token;
+        },
+        "new": function(typeName) {
+            var val = typeName;
+            if(typeNameMap[typeName]){
+                val = typeNameMap[typeName];
+            }
+            return {
+                "type": val
+            }
+        },      
+        create: function(entity) {
+            // not currently implemented since most things should go through quoting for validation and authorization
+        },
+        retrieve: function(type, id) {
+            return new Promise((resolve, reject) => {
+                xhr.get(_headers, `${baseUrl}/${type}/${id}`)
+                    .then((resp) => {
+                        var entity = JSON.parse(resp.responseText);
+                        entity.meta = getMeta(entity);
+                        entity = _.extend({}, entity, entity.meta);
+                        resolve(entity);
+                    })
+                    .catch(reject);
+            });
+        },
+        retrieveAll: function (typeName) {
+            return new Promise((resolve, reject) => {
+                xhr.get(_headers, `${baseUrl}/${typeName}`)
+                    .then((resp) => {
+                        resolve(JSON.parse(resp.responseText));
+                    })
+                    .catch(reject);
+            })
+        },
+        update: (entity) => {
+            // not currently implemented since most things should go through quoting for validation and authorization
+        },
+        "delete": (entity) => {
+            // not currently implemented since most things should go through quoting for validation and authorization
+        },
+        where: (predicate) => {
+            // not currently implemented since most things should go through quoting for validation and authorization
+        }
+    }
+
+    return _.clone(entities);
+})()
+
+module.exports = entities;
+},{"../../js/bam/system/xhr":46,"./environments.js":96,"lodash":78}],96:[function(require,module,exports){
     var environments = (function(){
     var _ = require('lodash');
 
@@ -36508,11 +36818,17 @@ if(typeof window !== 'undefined'){
             test: "https://quoting-api-test.test.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930",
             local: "https://quoting-api-proj05.prod.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930",
             prod: "https://quoting-api.prod.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930"
+        },
+        entityPaths = {
+            proj05: "https://quoting-api-proj05.prod.simon365.com/entity/v1/entity",
+            test: "https://quoting-api-test.test.simon365.com/entity/v1/entity",
+            local: "https://quoting-api-proj05.prod.simon365.com/entity/v1/entity",
+            prod: "https://quoting-api-prod.simon365.com/entity/v1/entity"
         }
 
         defaultSvcProviderId = '3d9c7c71-4860-496e-8880-bbbe0f830b4d';
 
-    function getToken(env) {
+    function loadToken(env) {
         var xhr = require('../../js/bam/system/xhr')({lodash: _});
         return new Promise((resolve, reject) => {
             xhr.get({}, tokenPaths[env])
@@ -36529,7 +36845,9 @@ if(typeof window !== 'undefined'){
         ratesPath: ratesPaths.local,
         addressPath: addressPaths.local,
         identityPath: identityPaths.local,
-        serviceProviderId: defaultSvcProviderId
+        entityPath: entityPaths.local,
+        serviceProviderId: defaultSvcProviderId,
+        token: null
     }
 
     return {
@@ -36555,7 +36873,8 @@ if(typeof window !== 'undefined'){
             current.quotingPath = quotingPaths[env];
             current.addressPath = addressPaths[env];
             current.identityPath = identityPaths[env];
-            current.ratesPath = ratesPaths[env];            
+            current.ratesPath = ratesPaths[env];   
+            current.entityPath = entityPaths[env];
         },    
         getCurrent: function() {
             return current;
@@ -36570,8 +36889,13 @@ if(typeof window !== 'undefined'){
                 addressPath: addressPaths[env],
                 ratesPath: ratesPaths[env],
                 identityPath: identityPaths[env],
+                entityPath: entityPaths[env],
                 serviceProviderId: defaultSvcProviderId
             }
+        },
+        getEntityPath: function(){
+            console.log(`getEntityPath: environment currently sert to ${current.env}`);
+            return current.entityPath;
         },
         getRatesPath: function(){
             console.log(`getRatesPath: environment currently set to ${current.env}`);
@@ -36594,12 +36918,12 @@ if(typeof window !== 'undefined'){
         },
         refreshToken: function(){
             console.log(`refreshToken: environment currently set to ${current.env}`);
-            return getToken(current.env);
+            return loadToken(current.env);
         },
         getAuthorizationHeader: function(env){
             var env = env || current.env;
             return new Promise((resolve, reject) => {
-                getToken(current.env)
+                loadToken(current.env)
                     .then(token => {
                         resolve({
                             "Authorization": token
@@ -36612,7 +36936,7 @@ if(typeof window !== 'undefined'){
 })()
 
 module.exports = environments;
-},{"../../js/bam/system/xhr":46,"lodash":78}],95:[function(require,module,exports){
+},{"../../js/bam/system/xhr":46,"lodash":78}],97:[function(require,module,exports){
 // Main
 
 window.handlebars = require('handlebars');
@@ -36629,8 +36953,48 @@ window.effectiveDate = require('./effectiveDate.js');
 
 require('./PlanDocuments/PlanDocuments.js');
 require('./SERFF/SERFF.js');
+require('./SalesContacts/SalesContacts.js');
 
-},{"../../js/bam/bam.js":40,"../../js/bam/data/dao.js":41,"../../js/bam/data/objToArray":42,"../../js/bam/data/qi.js":43,"../../js/bam/data/sdo.js":44,"./PlanDocuments/PlanDocuments.js":91,"./SERFF/SERFF.js":92,"./effectiveDate.js":93,"./environments.js":94,"./vimly.js":96,"handlebars":77}],96:[function(require,module,exports){
+},{"../../js/bam/bam.js":40,"../../js/bam/data/dao.js":41,"../../js/bam/data/objToArray":42,"../../js/bam/data/qi.js":43,"../../js/bam/data/sdo.js":44,"./PlanDocuments/PlanDocuments.js":91,"./SERFF/SERFF.js":92,"./SalesContacts/SalesContacts.js":93,"./effectiveDate.js":94,"./environments.js":96,"./vimly.js":99,"handlebars":77}],98:[function(require,module,exports){
+module.exports = (function(options){
+    "use strict";
+    
+    var _ = require("lodash");
+    var {environments, xhr} = _.extend({
+        environments: require("./environments.js"),
+        xhr: require("../../js/bam/system/xhr")({lodash: _})
+    }, options);
+
+    var _headers = {
+        Authorization: ""
+    }
+
+    var baseUrl = null;
+
+    var quoting = {  
+        setBaseUrl: function(url){
+            baseUrl = url;
+        },      
+        getBaseUrl: function() {
+            console.log(`quoting base url currenty set to ${baseUrl}`);
+            return baseUrl;
+        },
+        setAuth: function(token){
+            _headers.Authorization = token;
+        },
+        retrieve: function(type, id) {
+            var urlRoot = this.getBaseUrl();
+            return new Promise((resolve, reject) => {
+                xhr.get(_headers, `${urlRoot}/${type}/${id}`)
+                    .then(xhr => resolve(JSON.parse(xhr.responseText)))
+                    .catch(reject);
+            });
+        }        
+    }
+
+    return _.clone(quoting);
+})()
+},{"../../js/bam/system/xhr":46,"./environments.js":96,"lodash":78}],99:[function(require,module,exports){
 
 var vimly = {
     environments: require('../Vimly/environments.js'),
@@ -36657,4 +37021,4 @@ module.exports = vimly;
 if(undefined !== window){
     window.vimly = vimly;
 }
-},{"../Vimly/environments.js":94}]},{},[95]);
+},{"../Vimly/environments.js":96}]},{},[97]);

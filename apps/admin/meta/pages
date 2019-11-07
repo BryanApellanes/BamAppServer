@@ -3,6 +3,7 @@
   "tests",
   "Vimly/main",
   "Vimly/tests",
+  "Vimly/SalesContacts/SalesContacts",
   "Vimly/PlanLinks/planlinks",
   "Vimly/SERFF/SERFF",
   "Vimly/PlanDocuments/metro4-grid-example",
