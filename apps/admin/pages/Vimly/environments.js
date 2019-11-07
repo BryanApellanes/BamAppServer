@@ -31,11 +31,17 @@
             test: "https://quoting-api-test.test.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930",
             local: "https://quoting-api-proj05.prod.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930",
             prod: "https://quoting-api.prod.simon365.com/identity/api/test/token?id=bebcad85-6451-406c-a33f-69c829feb930"
+        },
+        entityPaths = {
+            proj05: "https://quoting-api-proj05.prod.simon365.com/entity/v1/entity",
+            test: "https://quoting-api-test.test.simon365.com/entity/v1/entity",
+            local: "https://quoting-api-proj05.prod.simon365.com/entity/v1/entity",
+            prod: "https://quoting-api-prod.simon365.com/entity/v1/entity"
         }
 
         defaultSvcProviderId = '3d9c7c71-4860-496e-8880-bbbe0f830b4d';
 
-    function getToken(env) {
+    function loadToken(env) {
         var xhr = require('../../js/bam/system/xhr')({lodash: _});
         return new Promise((resolve, reject) => {
             xhr.get({}, tokenPaths[env])
@@ -52,7 +58,9 @@
         ratesPath: ratesPaths.local,
         addressPath: addressPaths.local,
         identityPath: identityPaths.local,
-        serviceProviderId: defaultSvcProviderId
+        entityPath: entityPaths.local,
+        serviceProviderId: defaultSvcProviderId,
+        token: null
     }
 
     return {
@@ -78,7 +86,8 @@
             current.quotingPath = quotingPaths[env];
             current.addressPath = addressPaths[env];
             current.identityPath = identityPaths[env];
-            current.ratesPath = ratesPaths[env];            
+            current.ratesPath = ratesPaths[env];   
+            current.entityPath = entityPaths[env];
         },    
         getCurrent: function() {
             return current;
@@ -93,8 +102,13 @@
                 addressPath: addressPaths[env],
                 ratesPath: ratesPaths[env],
                 identityPath: identityPaths[env],
+                entityPath: entityPaths[env],
                 serviceProviderId: defaultSvcProviderId
             }
+        },
+        getEntityPath: function(){
+            console.log(`getEntityPath: environment currently set to ${current.env}`);
+            return current.entityPath;
         },
         getRatesPath: function(){
             console.log(`getRatesPath: environment currently set to ${current.env}`);
@@ -117,12 +131,12 @@
         },
         refreshToken: function(){
             console.log(`refreshToken: environment currently set to ${current.env}`);
-            return getToken(current.env);
+            return loadToken(current.env);
         },
         getAuthorizationHeader: function(env){
             var env = env || current.env;
             return new Promise((resolve, reject) => {
-                getToken(current.env)
+                loadToken(current.env)
                     .then(token => {
                         resolve({
                             "Authorization": token

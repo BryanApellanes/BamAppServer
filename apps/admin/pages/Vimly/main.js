@@ -14,3 +14,4 @@ window.effectiveDate = require('./effectiveDate.js');
 
 require('./PlanDocuments/PlanDocuments.js');
 require('./SERFF/SERFF.js');
+require('./SalesContacts/SalesContacts.js');

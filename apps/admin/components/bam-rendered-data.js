@@ -1,6 +1,6 @@
 class BamRenderedData extends HTMLElement {
     constructor() {
-        super(); // always call super() fist in the ctor.
+        super(); // always call super() first in the ctor.
 
         let tmpl = document.createElement('template');
         tmpl.innerHTML = `<p>This is content</p>
