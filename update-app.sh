@@ -7,6 +7,14 @@ else
     APPNAME=$1
 fi
 
+printf "APPNAME is $APPNAME\r\n"
+
+if [[ -z "$APPNAME" ]]
+    then
+        printf "Please specify app name, or create a file 'defaultappname' containing the default app name"
+        exit 1
+fi
+
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]] || [[ $2 = "-help" ]] || [[ $2 = "-?" ]] || [[ $2 = "-h" ]]
 then
@@ -19,7 +27,7 @@ then
 
 else
 
-if [[ ! -f ~/.bam/content ]] || [[ -L ~/.bam/content ]]
+if [[ ! -d ~/.bam/content ]] || [[ -L ~/.bam/content ]]
     then
         echo "creating ~/.bam/content symlink directing to `pwd`..."
         if [[ ~/.bam/content -ef `pwd` ]]
@@ -39,7 +47,12 @@ echo removing ~/.bam/content/apps/$APPNAME
 rm -fr ~/.bam/content/apps/$APPNAME
 
 echo copying ./apps/$1 to ~/.bam/content/apps/$APPNAME
-cp -R ./apps/$1 ~/.bam/content/apps/$APPNAME
+if [ ! -d ~/.bam/content/apps/$APPNAME ] 
+    then
+        mkdir -p ~/.bam/content/apps/$APPNAME
+fi
+
+cp -R ./apps/$APPNAME ~/.bam/content/apps/$APPNAME/
 
 fi 
 

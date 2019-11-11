@@ -1,13 +1,20 @@
 #!/bin/bash
 
-# TODO: this should check if the folder ~/.bam/content is a symlink 
+if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]] || [[ $2 = "-help" ]] || [[ $2 = "-?" ]] || [[ $2 = "-h" ]]
+then
+    printf "usage: update-app.sh\r\n"
+    printf "\r\n"
+    printf "Creates a symlink at ~/.bam/content that targets the current app server (../../).  If there is already a symlink at ~/.bam/content it is deleted and\r\n"
+    printf "replaced by a link targeting `pwd`.\r\n\r\n"
+    printf "If ~/.bam/content is not a symlink but an actual directory the folder ~/.bam/content/apps/$APPNAME is deleted and replace by ./apps/$APPNAME."
+    printf "\r\n"
 
-# copies $1 to ~/.bam/content/apps/$1
+else
 
 APPNAME=${PWD##*/}
 
-echo removing ~/.bam/content/apps/$APPNAME
-# rm -fr ~/.bam/content/apps/$APPNAME
+cd ../../
 
-echo copying . to ~/.bam/content/apps/$APPNAME
-cp -R . ~/.bam/content/apps/$APPNAME
+./update-app.sh $APPNAME
+
+fi
