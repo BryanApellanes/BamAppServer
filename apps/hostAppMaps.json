@@ -1,11 +1,11 @@
 [
   {
-    "Host": "bamapp",
-    "AppName": "bamapp"
-  },
-  {
     "Host": "admin",
     "AppName": "admin"
+  },
+  {
+    "Host": "bamapp",
+    "AppName": "bamapp"
   },
   {
     "Host": "vimly",

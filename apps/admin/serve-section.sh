@@ -20,6 +20,6 @@ npx browserify pages/$SECTION/main.js -o pages/dist/$SECTION/main.bundle.js
 # todo implement this as bam /serve:appName
 
 pwd
-./bin/bamweb/bamweb /S /content:/opt/bam/content /verbose /apps:${PWD##*/}
+bamweb /S /content:/opt/bam/content /verbose /apps:${PWD##*/}
 
 fi
