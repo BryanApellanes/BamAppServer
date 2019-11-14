@@ -329,6 +329,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-apps/bamapp
 apps/admin/appConf.json
 apps/admin/web-host.json
