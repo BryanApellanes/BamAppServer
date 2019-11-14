@@ -7,3 +7,6 @@
 [submodule "Workspace/BamToolkit"]
 	path = Workspace/BamToolkit
 	url = https://github.com/BryanApellanes/BamToolkit.git
+[submodule "apps/vimly-admin/js/bam"]
+	path = apps/vimly-admin/js/bam
+	url = https://github.com/BryanApellanes/bam.js.git
