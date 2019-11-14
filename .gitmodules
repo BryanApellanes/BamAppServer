@@ -7,3 +7,6 @@
 [submodule "apps/bamapp"]
 	path = apps/bamapp
 	url = git@github.com:BryanApellanes/BamApp.git
+[submodule "Workspace/BamToolkit"]
+	path = Workspace/BamToolkit
+	url = https://github.com/BryanApellanes/BamToolkit.git
