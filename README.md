@@ -2,17 +2,18 @@
 
 Vimly-Admin provides an administrative interface to the quoting system and the related services.
 
-## Quick Start
-Follow these instructions to install and use Vimly-Admin:
+## Prerequisites
+- [NodeJS](https://nodejs.org/)
+- [Git](https://git-scm.com/downloads)
 
-1. install [NodeJS](https://nodejs.org/)
-2. install [git](https://git-scm.com/downloads)
-3. Open a terminal and navigate to the folder where you'd like to install `vimly-admin`, this example uses `\vimly`:  
+## Quick Start
+
+1. Open a terminal and navigate to the folder where you'd like to install `vimly-admin`, this example uses `\vimly`:  
 ```cd \vimly```
-4. clone the `vimly-admin` repository:  
+2. clone the `vimly-admin` repository:  
 ```git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git```
-5. Change directories into the vimly-admin directory  
+3. Change directories into the vimly-admin directory  
 ```cd vimly-admin```
-6. Run the setup script  
+4. Run the setup script  
 ```./setup.sh```
 
