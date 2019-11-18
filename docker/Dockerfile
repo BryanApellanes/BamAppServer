@@ -2,9 +2,7 @@
 FROM microsoft/dotnet:sdk AS build-env
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && apt-get install -y git \
-    && apt-get install -y nodejs \
+    && apt-get install -y --no-install-recommends git-core curl build-essential openssl libssl-dev unzip \
     && rm -rf /var/lib/apt/lists/* 
 
 RUN mkdir -p /root/.bam
@@ -12,6 +10,8 @@ RUN mkdir -p /root/.bam
 WORKDIR /root 
 
 COPY . ./
+
+RUN ./install-nodejs.sh
 
 RUN mv ./_ssh/ ./.ssh \
     && git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git ./.bam/content
@@ -24,9 +24,7 @@ RUN ./setup.sh
 FROM microsoft/dotnet:aspnetcore-runtime
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && apt-get install -y git \
-    && apt-get install -y nodejs \
+    && apt-get install -y --no-install-recommends git-core curl build-essential openssl libssl-dev unzip \
     && rm -rf /var/lib/apt/lists/* 
 
 WORKDIR /root
