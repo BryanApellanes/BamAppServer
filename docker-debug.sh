@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: debug-container.sh <container-id>\r\n"
+    printf "usage: docker-debug.sh <image-name>\r\n"
     printf "\r\n"
     printf "Using docker, starts a bash prompt in the specified container to explore and debug its content."
     printf "\r\n"

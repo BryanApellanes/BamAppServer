@@ -11365,7 +11365,7 @@ var _logger = require('./logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var VERSION = '4.5.2';
+var VERSION = '4.5.3';
 exports.VERSION = VERSION;
 var COMPILER_REVISION = 8;
 exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -11667,16 +11667,18 @@ CodeGen.prototype = {
   },
 
   objectLiteral: function objectLiteral(obj) {
+    // istanbul ignore next
+
+    var _this = this;
+
     var pairs = [];
 
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        var value = castChunk(obj[key], this);
-        if (value !== 'undefined') {
-          pairs.push([this.quotedString(key), ':', value]);
-        }
+    Object.keys(obj).forEach(function (key) {
+      var value = castChunk(obj[key], _this);
+      if (value !== 'undefined') {
+        pairs.push([_this.quotedString(key), ':', value]);
       }
-    }
+    });
 
     var ret = this.generateList(pairs);
     ret.prepend('{');
@@ -11784,9 +11786,7 @@ Compiler.prototype = {
 
     options.blockParams = options.blockParams || [];
 
-    // These changes will propagate to the other compiler components
-    var knownHelpers = options.knownHelpers;
-    options.knownHelpers = {
+    options.knownHelpers = _utils.extend(Object.create(null), {
       'helperMissing': true,
       'blockHelperMissing': true,
       'each': true,
@@ -11795,15 +11795,7 @@ Compiler.prototype = {
       'with': true,
       'log': true,
       'lookup': true
-    };
-    if (knownHelpers) {
-      // the next line should use "Object.keys", but the code has been like this a long time and changing it, might
-      // cause backwards-compatibility issues... It's an old library...
-      // eslint-disable-next-line guard-for-in
-      for (var _name in knownHelpers) {
-        this.options.knownHelpers[_name] = knownHelpers[_name];
-      }
-    }
+    }, options.knownHelpers);
 
     return this.accept(program);
   },
@@ -12097,10 +12089,9 @@ Compiler.prototype = {
     // if ambiguous, we can possibly resolve the ambiguity now
     // An eligible helper is one that does not have a complex path, i.e. `this.foo`, `../foo` etc.
     if (isEligible && !isHelper) {
-      var _name2 = sexpr.path.parts[0],
+      var _name = sexpr.path.parts[0],
           options = this.options;
-
-      if (options.knownHelpers[_name2]) {
+      if (options.knownHelpers[_name]) {
         isHelper = true;
       } else if (options.knownHelpersOnly) {
         isEligible = false;
@@ -12536,6 +12527,8 @@ var _codeGen = require('./code-gen');
 
 var _codeGen2 = _interopRequireDefault(_codeGen);
 
+var _helpersLookup = require('../helpers/lookup');
+
 function Literal(value) {
   this.value = value;
 }
@@ -12546,9 +12539,8 @@ JavaScriptCompiler.prototype = {
   // PUBLIC API: You can override these methods in a subclass to provide
   // alternative compiled forms for name lookup and buffering semantics
   nameLookup: function nameLookup(parent, name /* , type*/) {
-    var isEnumerable = [this.aliasable('container.propertyIsEnumerable'), '.call(', parent, ',"constructor")'];
-
-    if (name === 'constructor') {
+    if (_helpersLookup.dangerousPropertyRegex.test(name)) {
+      var isEnumerable = [this.aliasable('container.propertyIsEnumerable'), '.call(', parent, ',', JSON.stringify(name), ')'];
       return ['(', isEnumerable, '?', _actualLookup(), ' : undefined)'];
     }
     return _actualLookup();
@@ -12740,6 +12732,10 @@ JavaScriptCompiler.prototype = {
   },
 
   createFunctionContext: function createFunctionContext(asObject) {
+    // istanbul ignore next
+
+    var _this = this;
+
     var varDeclarations = '';
 
     var locals = this.stackVars.concat(this.registers.list);
@@ -12754,14 +12750,13 @@ JavaScriptCompiler.prototype = {
     // aliases will not be used, but this case is already being run on the client and
     // we aren't concern about minimizing the template size.
     var aliasCount = 0;
-    for (var alias in this.aliases) {
-      // eslint-disable-line guard-for-in
-      var node = this.aliases[alias];
-      if (this.aliases.hasOwnProperty(alias) && node.children && node.referenceCount > 1) {
+    Object.keys(this.aliases).forEach(function (alias) {
+      var node = _this.aliases[alias];
+      if (node.children && node.referenceCount > 1) {
         varDeclarations += ', alias' + ++aliasCount + '=' + alias;
         node.children[0] = 'alias' + aliasCount;
       }
-    }
+    });
 
     var params = ['container', 'depth0', 'helpers', 'partials', 'data'];
 
@@ -13007,7 +13002,7 @@ JavaScriptCompiler.prototype = {
   resolvePath: function resolvePath(type, parts, i, falsy, strict) {
     // istanbul ignore next
 
-    var _this = this;
+    var _this2 = this;
 
     if (this.options.strict || this.options.assumeObjects) {
       this.push(strictLookup(this.options.strict && strict, this, parts, type));
@@ -13018,7 +13013,7 @@ JavaScriptCompiler.prototype = {
     for (; i < len; i++) {
       /* eslint-disable no-loop-func */
       this.replaceStack(function (current) {
-        var lookup = _this.nameLookup(current, parts[i], type);
+        var lookup = _this2.nameLookup(current, parts[i], type);
         // We want to ensure that zero and false are handled properly if the context (falsy flag)
         // needs to have the special handling for these values.
         if (!falsy) {
@@ -13670,7 +13665,7 @@ exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
 
 
-},{"../base":59,"../exception":72,"../utils":85,"./code-gen":62}],66:[function(require,module,exports){
+},{"../base":59,"../exception":72,"../helpers/lookup":79,"../utils":85,"./code-gen":62}],66:[function(require,module,exports){
 // File ignored in coverage tests via setting in .istanbul.yml
 /* Jison generated parser */
 "use strict";
@@ -15253,10 +15248,10 @@ exports['default'] = function (instance) {
           execIteration(i, i, i === context.length - 1);
         }
       } else {
-        var priorKey = undefined;
+        (function () {
+          var priorKey = undefined;
 
-        for (var key in context) {
-          if (context.hasOwnProperty(key)) {
+          Object.keys(context).forEach(function (key) {
             // We're running the iterations one step out of sync so we can detect
             // the last iteration without have to scan the object twice and create
             // an itermediate keys array.
@@ -15265,11 +15260,11 @@ exports['default'] = function (instance) {
             }
             priorKey = key;
             i++;
+          });
+          if (priorKey !== undefined) {
+            execIteration(priorKey, i - 1, true);
           }
-        }
-        if (priorKey !== undefined) {
-          execIteration(priorKey, i - 1, true);
-        }
+        })();
       }
     }
 
@@ -15388,20 +15383,21 @@ module.exports = exports['default'];
 'use strict';
 
 exports.__esModule = true;
+var dangerousPropertyRegex = /^(constructor|__defineGetter__|__defineSetter__|__lookupGetter__|__proto__)$/;
+
+exports.dangerousPropertyRegex = dangerousPropertyRegex;
 
 exports['default'] = function (instance) {
   instance.registerHelper('lookup', function (obj, field) {
     if (!obj) {
       return obj;
     }
-    if (String(field) === 'constructor' && !obj.propertyIsEnumerable(field)) {
+    if (dangerousPropertyRegex.test(String(field)) && !Object.prototype.propertyIsEnumerable.call(obj, field)) {
       return undefined;
     }
     return obj[field];
   });
 };
-
-module.exports = exports['default'];
 
 
 },{}],80:[function(require,module,exports){
