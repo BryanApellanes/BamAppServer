@@ -9,7 +9,7 @@ WORKDIR /root/.bam
 COPY . ./
 
 RUN mv ./_ssh/ ~/.ssh \
-    && git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git /root/.bam/content
+    && git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git /root/.bam/content    
 
 WORKDIR /root/.bam/content
 
