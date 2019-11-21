@@ -4,9 +4,6 @@ WORKDIR /root/.bam/content
 
 COPY . ./
 
-RUN mv ./_ssh/ ./.ssh \
-    && git clone git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git /root/.bam/content
-
 ENV ASPNETCORE_ENVIRONMENT=DEV
 ENTRYPOINT [ "./serve.sh" ]
 

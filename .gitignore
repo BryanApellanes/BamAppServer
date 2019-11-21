@@ -333,3 +333,5 @@ apps/admin/appConf.json
 apps/admin/web-host.json
 
 node_modules
+
+package-lock.json
