@@ -9,3 +9,5 @@ tar -xvf ./node-v$NODEVERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
 ln -s /usr/local/lib/nodejs/node-v$NODEVERSION-$DISTRO/bin/node /usr/local/bin/node
 ln -s /usr/local/lib/nodejs/node-v$NODEVERSION-$DISTRO/bin/npm /usr/local/bin/npm
 ln -s /usr/local/lib/nodejs/node-v$NODEVERSION-$DISTRO/bin/npx /usr/local/bin/npx
+
+chmod +x /u
