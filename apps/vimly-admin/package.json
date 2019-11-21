@@ -8,15 +8,13 @@
     "planlinks": "npx browserify Pages/planlinks.js -o Pages/dist/planlinks.js && electron . /page:planlinks",
     "experimental": "electron . /page:experimental",
     "browserify": "npx browserify Pages/Modules/index.js -o dist/index.js",
-    "testCaseMgmt": "npx browserify Pages/Vimly/CaseManagement/tests.js -o Pages/dist/Vimly/CaseManagement/tests.js && electron . /page:Vimly/CaseManagement/tests /dev",
-    "open": "electron . "
+    "testCaseMgmt": "npx browserify Pages/Vimly/CaseManagement/tests.js -o Pages/dist/Vimly/CaseManagement/tests.js && electron . /page:Vimly/CaseManagement/tests /dev"
   },
   "author": "Bryan Apellanes",
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "electron": "^5.0.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
   },
