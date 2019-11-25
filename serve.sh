@@ -9,6 +9,8 @@ then
 
 else
 
+./link-content-here.sh
+
 APPNAME=$(<defaultappname)
 SECTION=$(<apps/$APPNAME/defaultsection)
 
