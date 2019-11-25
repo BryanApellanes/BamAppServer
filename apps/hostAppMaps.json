@@ -4,6 +4,10 @@
     "AppName": "bamapp"
   },
   {
+    "Host": "bamdb",
+    "AppName": "bamdb"
+  },
+  {
     "Host": "vimly-admin",
     "AppName": "vimly-admin"
   },
