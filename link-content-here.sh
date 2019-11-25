@@ -29,4 +29,22 @@ echo '~/.bam/content is not a symlink'
 
 fi 
 
+if [[ ! -f /opt/bam/content ]] || [[ -L /opt/bam/content ]]
+    then
+        echo "creating /opt/bam/content symlink directing to `pwd`..."
+        if [[ /opt/bam/content -ef `pwd` ]]
+            then
+                echo "already targeting `pwd`, no action needed."
+        else
+            echo "removing /opt/bam/content"
+            rm /opt/bam/content
+            echo "linking /opt/bam/content to `pwd`"
+            ln -s `pwd` /opt/bam/content
+        fi
+else
+
+echo '/opt/bam/content is not a symlink'
+
+fi 
+
 fi
