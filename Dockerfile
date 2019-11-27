@@ -1,6 +1,6 @@
-FROM bryanapellanes/bamweb-runtime:latest
+FROM bamapps/bamweb-runtime:latest
 
-WORKDIR /root/.bam/content
+WORKDIR /opt/bam/content
 
 COPY . ./
 

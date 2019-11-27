@@ -8,13 +8,10 @@ image: microsoft/dotnet:sdk
 pipelines:
   default:
     - step:
+        name: build docker images
         services:
           - docker
         caches:
           - dotnetcore
-        script: # Modify the comma`nds below to build your repository.
-          - export PROJECT_NAME=yourProjectName
-          - export TEST_NAME=yourTestName
-          - dotnet restore
-          - dotnet build $PROJECT_NAME
-          - dotnet test $TEST_NAME
+        script: # Modify the commands below to build your repository.
+          - ./build-images.sh
