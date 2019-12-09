@@ -1,6 +1,6 @@
 # Vimly-Admin
 
-Vimly-Admin provides an administrative interface to the quoting system and the related services.
+Vimly-Admin provides an administrative interface to the quoting system and related services.
 
 ## Prerequisites
 - [NodeJS](https://nodejs.org/)

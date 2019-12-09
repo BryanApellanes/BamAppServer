@@ -8,10 +8,10 @@ image: microsoft/dotnet:sdk
 pipelines:
   default:
     - step:
-        name: build docker images
+        name: Build Docker Images
         services:
           - docker
         caches:
           - dotnetcore
         script: # Modify the commands below to build your repository.
-          - ./build-images.sh
+          - ./build.sh

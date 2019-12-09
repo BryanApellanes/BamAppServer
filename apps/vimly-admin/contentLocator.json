@@ -119,6 +119,33 @@
           "RelativePath": "~/pages"
         }
       ]
+    },
+    {
+      "Ext": ".map",
+      "SearchDirectories": [
+        {
+          "SortOrder": 1,
+          "RelativePath" : "~/js"
+        }
+      ]
+    },
+    {
+      "Ext": ".woff",
+      "SearchDirectories": [
+        {
+          "SortOrder": 1,
+          "RelativePath": "~/pages"
+        }
+      ]
+    },
+    {
+      "Ext": ".woff2",
+      "SearchDirectories": [
+        {
+          "SortOrder": 1,
+          "RelativePath": "~/pages"
+        }
+      ]
     }
   ]
 }
