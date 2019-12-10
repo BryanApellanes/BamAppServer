@@ -14,4 +14,4 @@ pipelines:
         caches:
           - dotnetcore
         script: # Modify the commands below to build your repository.
-          - ./build.sh
+          - ./docker-build.sh

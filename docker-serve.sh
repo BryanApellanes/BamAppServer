@@ -12,7 +12,7 @@ else
 SUFFIX=`date | md5`
 NAME=$(<defaultappname)
 IMAGE=$(<defaultappname)
-PORTS=8080:8080
+PORTS=$(<defaultports)
 
 docker run -d -p $PORTS --name $NAME-$SUFFIX $IMAGE
 
