@@ -2,9 +2,10 @@
 
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: docker-run.sh <image-name> <image-id> <innerport>:<outerport>\r\n"
+    printf "usage: docker-serve.sh\r\n"
     printf "\r\n"
-    printf "Using docker, starts a bash prompt in the specified container to explore and debug its content.\r\n"
+    printf "Using docker, starts a a containter using the image referenced by the content of the file 'defaultappname'.\r\n"
+    printf "This assumes that the image has already been built and is available.\r\n"
     printf "\r\n"
     exit 0
 else

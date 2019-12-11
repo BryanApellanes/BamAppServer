@@ -13,8 +13,13 @@
   },
   "Bindings": [
     {
+      "HostName": "vimly-admin.azurewebsites.net",
+      "Port": 443,
+      "Ssl": true
+    },
+    {
       "HostName": "vimly-admin",
-      "Port": 8080,
+      "Port": 80,
       "Ssl": false
     }
   ],
