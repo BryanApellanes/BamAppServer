@@ -9,7 +9,7 @@ Vimly-Admin development requires nodejs and git.
 
 ## Quick Start
 
-To prepare and run vimly-admin locally for development do the following:
+To prepare and run vimly-admin locally do the following:
 
 1. create a folder to hold a local copy of the `vimly-admin` repository and change directories into it, this example uses `/src`: <br />
     `mdkir /src` <br />
@@ -18,7 +18,7 @@ To prepare and run vimly-admin locally for development do the following:
     - ensure your ssh public key is trusted by the [bitbucket repository](https://bitbucket.org/bsiprojectjedan/vimly-admin/admin/access-keys/) and execute the following:<br />
     `git clone git@bitbucket.org:bsiprojectjedan/vimly-admin.git`
     - alternatively use https:<br />
-    `git clone https://bapellanes@bitbucket.org/bsiprojectjedan/vimly-admin.git`
+    `git clone https://bitbucket.org/bsiprojectjedan/vimly-admin.git`
 3. change directories into the newly cloned repository and execute the setup.sh script, this installs the supporting toolkit: <br />
     `cd vimly-admin`<br />
     `./setup.sh`
@@ -27,3 +27,7 @@ To prepare and run vimly-admin locally for development do the following:
 6. execute the 'serve.sh' script, this starts the application listening on port 80:<br />
     `./serve.sh`
 7. using a browser, open `http://vimly-admin`
+
+## Docker Build
+
+To build a docker container for the 

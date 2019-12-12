@@ -16,7 +16,11 @@ DOCKERHUBREGISTRY="docker.io/bamapps/"
 push () {
     local APPNAME=$(<defaultappname)
     local REMOTEREGISTRY=$(<defaultimageregistry)
-    local TAG=latest
+    local TAG=$(<version)
+
+    if [[ -z $TAG ]]; then
+        TAG="latest"
+    fi
 
     if [[ $# = 1 ]]; then
         if [[ $1 = "azure" ]]; then
@@ -43,7 +47,7 @@ push () {
         fi
     fi
 
-    local REMOTEIMAGENAME=${REMOTEREGISTRY}${APPNAME}:${TAG}
+    local REMOTEIMAGENAME=${REMOTEREGISTRY}${APPNAME}:v${TAG}
     printf "tagging ${APPNAME} => ${REMOTEIMAGENAME}\r\n"
     docker tag ${APPNAME} ${REMOTEIMAGENAME}
     printf "pushing ${REMOTEIMAGENAME}"
