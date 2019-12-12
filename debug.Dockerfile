@@ -1,4 +1,4 @@
-FROM bamapps/bamweb-runtime:latest
+FROM bamapps/bamweb-runtime:v0.0.1
 
 WORKDIR /opt/bam/content
 

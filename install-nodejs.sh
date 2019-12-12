@@ -1,4 +1,12 @@
 #!/bin/bash
+if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
+    printf "usage: install-nodejs.sh\r\n"
+    printf "\r\n"
+    printf "Downloads and installs the linux version of nodejs specified in the file 'nodeversion'.  This is used to\r\n"
+    printf "install node in the container image; you should use the installation method appropriate for your environment."
+    printf "\r\n"
+    exit 0;
+fi
 
 NODEVERSION=$(<nodeversion)
 DISTRO=linux-x64
