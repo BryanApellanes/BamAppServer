@@ -38,6 +38,7 @@
   "docs/_layouts/default",
   "Vimly/main",
   "Vimly/tests",
+  "Vimly/ok",
   "Vimly/SalesContacts/SalesContacts",
   "Vimly/PlanLinks/planlinks",
   "Vimly/admin/profile",

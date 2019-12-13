@@ -10,8 +10,9 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     exit 0;
 fi
 
-AZUREREGISTRY="bamapps.azurecr.io/"
-DOCKERHUBREGISTRY="docker.io/bamapps/"
+AZUREREGISTRY=$(<imageregistries/azure)
+DOCKERHUBREGISTRY=$(<imageregistries/dockerhub)
+AMAZONREGISTRY=$(<imageregistries/amazon)
 
 push () {
     local APPNAME=$(<defaultappname)
@@ -25,12 +26,14 @@ push () {
     if [[ $# = 1 ]]; then
         if [[ $1 = "azure" ]]; then
             REMOTEREGISTRY=$AZUREREGISTRY
+        fi
+        if [[ $1 = "amazon" ]]; then
+            REMOTEREGISTRY=$AMAZONREGISTRY
+        fi
+        if [[ $1 = "dockerhub" ]]; then
+            REMOTEREGISTRY=$DOCKERHUBREGISTRY
         else
-            if [[ $1 = "dockerhub" ]]; then
-                REMOTEREGISTRY=$DOCKERHUBREGISTRY
-            else
-                TAG=$1
-            fi
+            TAG=$1
         fi
     fi
 
@@ -38,16 +41,18 @@ push () {
         TAG=$2
         if [[ $1 = "azure" ]]; then
             REMOTEREGISTRY=$AZUREREGISTRY
+        fi
+        if [[ $1 = "amazon" ]]; then
+            REMOTEREGISTRY=$AMAZONREGISTRY
+        fi
+        if [[ $1 = "dockerhub" ]]; then
+            REMOTEREGISTRY=$DOCKERHUBREGISTRY                
         else
-            if [[ $1 = "dockerhub" ]]; then
-                REMOTEREGISTRY=$DOCKERHUBREGISTRY                
-            else
-                REMOTEREGISTRY=$1
-            fi
+            REMOTEREGISTRY=$1
         fi
     fi
 
-    local REMOTEIMAGENAME=${REMOTEREGISTRY}${APPNAME}:v${TAG}
+    local REMOTEIMAGENAME=${REMOTEREGISTRY}/${APPNAME}:${TAG}
     printf "tagging ${APPNAME} => ${REMOTEIMAGENAME}\r\n"
     docker tag ${APPNAME} ${REMOTEIMAGENAME}
     printf "pushing ${REMOTEIMAGENAME}"

@@ -125,6 +125,10 @@
       "SearchDirectories": [
         {
           "SortOrder": 1,
+          "RelativePath": "~/pages"          
+        },
+        {
+          "SortOrder": 2,
           "RelativePath" : "~/js"
         }
       ]

@@ -30,4 +30,4 @@ To prepare and run vimly-admin locally do the following:
 
 ## Docker Build
 
-To build a docker container for the 
+To build a docker container for the current state of the vimly-admin repository/project execute the `docker-build.sh` script.
