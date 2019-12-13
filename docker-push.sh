@@ -56,7 +56,7 @@ push () {
     local REMOTEIMAGENAME=${REMOTEREGISTRY}/${APPNAME}:${TAG}
     printf "tagging ${APPNAME} => ${REMOTEIMAGENAME}\r\n"
     docker tag ${APPNAME} ${REMOTEIMAGENAME}
-    printf "pushing ${REMOTEIMAGENAME}"
+    printf "pushing ${REMOTEIMAGENAME}\r\n"
     docker push ${REMOTEIMAGENAME}
 }
 
