@@ -3,9 +3,9 @@
 Vimly-Admin provides an administrative interface to the quoting system and related services.
 
 ## Prerequisites
-Vimly-Admin development requires nodejs and git. 
-- [NodeJS](https://nodejs.org/)
-- [Git](https://git-scm.com/downloads)
+Vimly-Admin development requires nodejs and git. <br />
+- [NodeJS](https://nodejs.org/) <br />
+- [Git](https://git-scm.com/downloads) <br />
 
 ## Quick Start
 

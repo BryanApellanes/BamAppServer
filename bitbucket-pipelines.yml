@@ -1,17 +1,44 @@
-# This is a sample build configuration for .NET Core.
-# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
 image: microsoft/dotnet:sdk
 
 pipelines:
   default:
     - step:
-        name: Build Docker Images
+        name: Build
         services:
           - docker
-        caches:
-          - dotnetcore
-        script: # Modify the commands below to build your repository.
-          - ./docker-build.sh
+        script:
+          - ./build.sh
+          - ./docker-push-test.sh
+    - step:
+        name: Deploy Test
+        services:
+          - docker
+        script:
+          - ./deploy.sh test
+    - step:
+        name: Test
+        services:
+          - docker
+        script:
+          - ./test.sh
+  branches:
+    master:
+      - step:
+          name: Build
+          services:
+            - docker
+          script:
+            - ./build.sh
+            - ./docker-push-release.sh
+      - step:
+        name: Test
+        services:
+          - docker
+        script:
+          - ./test.sh
+      - step:
+          name: Deploy Release
+          services:
+            - docker
+          script: 
+            - ./deploy.sh release    
