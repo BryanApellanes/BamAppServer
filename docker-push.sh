@@ -16,7 +16,8 @@ AMAZONREGISTRY=$(<imageregistries/amazon)
 
 push () {
     local APPNAME=$(<defaultappname)
-    local REMOTEREGISTRY=$(<defaultimageregistry)
+    local IMAGEREGISTRY=$(<defaultimageregistry)
+    local REMOTEREGISTRY=$(<imageregistries/${IMAGEREGISTRY})
     local TAG=$(<version)
 
     if [[ -z $TAG ]]; then
