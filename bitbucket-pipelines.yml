@@ -7,6 +7,8 @@ pipelines:
         services:
           - docker
         script:
+          - source ./env.sh
+          - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           - ./build.sh
           - ./docker-push-test.sh
     - step:
@@ -28,14 +30,16 @@ pipelines:
           services:
             - docker
           script:
+            - source ./env.sh
+            - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
             - ./build.sh
             - ./docker-push-release.sh
       - step:
-        name: Test
-        services:
-          - docker
-        script:
-          - ./test.sh
+          name: Test
+          services:
+            - docker
+          script:
+            - ./test.sh
       - step:
           name: Deploy Release
           services:
