@@ -9,12 +9,13 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
 fi
 
 if [[ $1 = "test" ]]; then
-    ./docker-push-test.sh
+    echo "TODO: add test deploy code here"
     exit $?
 fi
 
 if [[ $1 = "release" ]]; then
-    ./docker-push-release.sh
+    echo "TODO: add release deploy code here"
+    
     exit $?
 fi
 

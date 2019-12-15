@@ -16,7 +16,8 @@ AMAZONREGISTRY=$(<imageregistries/amazon)
 
 push () {
     local APPNAME=$(<defaultappname)
-    local REMOTEREGISTRY=$(<defaultimageregistry)
+    local IMAGEREGISTRY=$(<defaultimageregistry)
+    local REMOTEREGISTRY=$(<imageregistries/${IMAGEREGISTRY})
     local TAG=$(<version)
 
     if [[ -z $TAG ]]; then
@@ -55,7 +56,7 @@ push () {
     local REMOTEIMAGENAME=${REMOTEREGISTRY}/${APPNAME}:${TAG}
     printf "tagging ${APPNAME} => ${REMOTEIMAGENAME}\r\n"
     docker tag ${APPNAME} ${REMOTEIMAGENAME}
-    printf "pushing ${REMOTEIMAGENAME}"
+    printf "pushing ${REMOTEIMAGENAME}\r\n"
     docker push ${REMOTEIMAGENAME}
 }
 
