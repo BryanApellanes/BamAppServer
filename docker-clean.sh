@@ -1,1 +1,0 @@
-./Workspace/BamToolkit/docker/docker-clean.sh

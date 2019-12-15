@@ -1,11 +1,18 @@
 #!/bin/bash
 
-TAG=$(<tag)
+VAL=""
 
-if [[ -z $TAG ]]; then
-    printf "yo\r\n"
+if [[ -z $VAL ]]; then
+    echo $VAL is blank
 fi
 
-let "VER = $TAG + 1"
+VAL="value"
 
-printf $VER
+if [[ !(-z $VAL) ]]; then
+    echo $VAL got it
+fi
+
+VAL=""
+if [[ !(-z $VAL) ]]; then
+    echo "should not see this"
+fi

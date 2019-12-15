@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: docker-debug-image.sh <container-id>\r\n"
+    printf "usage: debug-image.sh <container-id>\r\n"
     printf "\r\n"
     printf "Starts a container for the specified image and begins a bash prompt in that container to explore and debug its content.\r\n"
     printf "Use 'docker images' to view available images."
@@ -9,4 +9,4 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     exit 0;
 fi
 
-./docker-debug.sh image $1
+./debug.sh image $1
