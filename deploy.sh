@@ -10,12 +10,13 @@ fi
 
 if [[ $1 = "test" ]]; then
     echo "TODO: add test deploy code here"
+    
     exit $?
 fi
 
 if [[ $1 = "release" ]]; then
     echo "TODO: add release deploy code here"
-    
+
     exit $?
 fi
 

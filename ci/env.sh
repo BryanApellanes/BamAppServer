@@ -2,13 +2,15 @@
 
 if [[ -z $APPNAME ]]; then
     export APPNAME=$(<../defaultappname)
+    printf "APPNAME is ${APPNAME}\r\n"
 fi
-printf "APPNAME is ${APPNAME}\r\n"
-
-IMPL=$1
 
 if [[ -z $IMPL ]]; then
-    IMPL="docker"
+    export IMPL=$1
+fi
+
+if [[ -z $IMPL ]]; then
+    export IMPL="docker"
 fi
 
 cd ${IMPL}

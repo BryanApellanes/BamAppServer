@@ -1,19 +1,21 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: docker-version.sh [ major | minor | patch ] [ pre-release ]\r\n"
+    printf "usage: version.sh [ major | minor | patch ] [ pre-release ]\r\n"
     printf "\r\n"
-    printf "Updates the current version of this project.  Version components are found in the files 'major', 'minor' and 'patch' with the\r\n"
+    printf "Updates the current version of this project.  Version components are found in the semver folder in the files 'major', 'minor' and 'patch' with the\r\n"
     printf "full version found in the file 'version'."
     printf "\r\n"
     exit 0;
 fi
 
-MAJOR=$(<major)
-MINOR=$(<minor)
-PATCH=$(<patch)
+source ./env.sh
 
-CURRENTVERSION=$(<version)
+MAJOR=$(<${SEMVERROOT}/major)
+MINOR=$(<${SEMVERROOT}/minor)
+PATCH=$(<${SEMVERROOT}/patch)
+
+CURRENTVERSION=$(<${SEMVERROOT}/version)
 COMMIT=$(git log --format="%H" -n 1 | cut -c 1-6)    
 
 if [[ $1 = "major" || $2 = "major" ]]; then
@@ -33,7 +35,7 @@ if [[ $1 = "dev" || $2 = "dev" ]]; then
 fi
 
 if [[ $1 = "pre-release" || $1 = "staging" || $2 = "staging" || $2 = "pre-release" ]]; then    
-    NEWVERSION=${MAJOR}.${MINOR}.${PATCH}-rc${COMMIT}
+    NEWVERSION=${MAJOR}.${MINOR}.${PATCH}-rc_${COMMIT}
 fi
 
 if [[ $1 = "release" ]]; then
@@ -49,8 +51,8 @@ printf "OLD version $CURRENTVERSION\r\n"
 printf "NEW version $NEWVERSION\r\n"
 printf "\r\n"
 
-echo $NEWVERSION > version
+echo $NEWVERSION > ${SEMVERROOT}/version
 
-echo $MAJOR > major
-echo $MINOR > minor
-echo $PATCH > patch
+echo $MAJOR > ${SEMVERROOT}/major
+echo $MINOR > ${SEMVERROOT}/minor
+echo $PATCH > ${SEMVERROOT}/patch

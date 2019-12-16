@@ -1,24 +1,33 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: docker-push.sh [azure | dockerhub] [tag]\r\n"
+    printf "usage: push.sh [azure | dockerhub | amazon] [tag]\r\n"
     printf "\r\n"
     printf "Tags and pushes the image named by the content of the file 'defaultappname'.  The image registry is specified in the \r\n"
     printf "file 'defaultimageregistry'; you may optionally specify 'azure', 'amazon' or 'dockerhub' to override the content of 'defaultimageregistry'.\r\n"
     printf "You may also specify an optional tag, the default is 'latest'.\r\n"
     printf "\r\n"
+    printf "Arguments are REMOTEREGISTRY and/or TAG;\r\n"
+    printf "If 1 argument is specified and is one of:\r\n\r\n"
+    printf "\t'azure', 'amazon' or 'dockerhub'\r\n\r\n"
+    printf "it is treated as a registry and translated to the server registry path.\r\n"
+    printf "Otherwise it is treated as a tag.\r\n\r\n"
+    printf "If 2 arguments are specified the second argument is treated as the tag.\r\n"
+    printf "If the first argument is one of:\r\n\r\n"
+    printf "\t'azure', 'amazon' or 'dockerhub'\r\n\r\n"
+    printf "it is treated as a registry and translated to the server registry path.\r\n"
+    printf "Otherwise it is treated as the server registry path without further translation.\r\n\r\n"
     exit 0;
 fi
 
-AZUREREGISTRY=$(<imageregistries/azure)
-DOCKERHUBREGISTRY=$(<imageregistries/dockerhub)
-AMAZONREGISTRY=$(<imageregistries/amazon)
+source ./env.sh
+
+AZUREREGISTRY=$(<registries/azure)
+DOCKERHUBREGISTRY=$(<registries/dockerhub)
+AMAZONREGISTRY=$(<registries/amazon)
 
 push () {
-    local APPNAME=$(<defaultappname)
-    local IMAGEREGISTRY=$(<defaultimageregistry)
-    local REMOTEREGISTRY=$(<imageregistries/${IMAGEREGISTRY})
-    local TAG=$(<version)
+    printf "DOCKERIMAGEROOT is ${DOCKERIMAGEROOT}\r\n"
 
     if [[ -z $TAG ]]; then
         TAG="latest"

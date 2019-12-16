@@ -1,4 +1,4 @@
-#1/bin/bash
+#!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     printf "usage: debug <implementation>\r\n"
