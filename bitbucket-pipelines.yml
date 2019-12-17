@@ -1,11 +1,8 @@
-image: bamapps/bamweb-runtime:0.0.2
+image: 
+  name: bamapps/bamweb-runtime:0.0.2
 
 pipelines:
   default:
-    - step: 
-        name: Install AWS CLI
-        script:
-          - ./install-aws-cli.sh      
     - step:
         name: Build
         services:
@@ -28,10 +25,6 @@ pipelines:
           - ./test.sh
   branches:
     master:
-      - step: 
-        name: Install AWS CLI
-        script:
-          - ./install-aws-cli.sh       
       - step:
         name: Build
         services:
