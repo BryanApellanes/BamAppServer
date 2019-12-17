@@ -1,4 +1,4 @@
-image: microsoft/dotnet:sdk
+image: bamapps/bamweb-runtime:0.0.1
 
 pipelines:
   default:
