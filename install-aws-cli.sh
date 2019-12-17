@@ -8,10 +8,6 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     exit 0;
 fi
 
-# install python3 for aws cli support
-apt-get update \
-    && apt-get install -y --no-install-recommends python3
-
 curl -O https://bootstrap.pypa.io/get-pip.py
 python3 get-pip.py --user
 pip3 install awscli --upgrade --user

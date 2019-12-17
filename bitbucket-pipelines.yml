@@ -1,4 +1,4 @@
-image: bamapps/bamweb-runtime:0.0.1
+image: bamapps/bamweb-runtime:0.0.2
 
 pipelines:
   default:
