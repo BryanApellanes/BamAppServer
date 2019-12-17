@@ -10,8 +10,8 @@ fi
 
 source ./env.sh
 
-printf "executing => 'docker build -t ${APPNAME}-debug ${DOCKERIMAGEROOT} -f ${DEBUGDOCKERFILE}'\r\n"
-docker build -t ${APPNAME}-debug ${DOCKERIMAGEROOT} -f ${DEBUGDOCKERFILE}
+printf "executing => 'docker build -t ${APPNAME}-debug ${APPROOT} -f ${DEBUGDOCKERFILE}'\r\n"
+docker build -t ${APPNAME}-debug ${APPROOT} -f ${DEBUGDOCKERFILE}
 
-printf "executing => 'docker build -t ${APPNAME} ${DOCKERIMAGEROOT} -f ${DOCKERFILE}'\r\n"
-docker build -t ${APPNAME} ${DOCKERIMAGEROOT} -f ${DOCKERFILE}
+printf "executing => 'docker build -t ${APPNAME} ${APPROOT} -f ${DOCKERFILE}'\r\n"
+docker build -t ${APPNAME} ${APPROOT} -f ${DOCKERFILE}

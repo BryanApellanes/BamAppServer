@@ -27,7 +27,7 @@ DOCKERHUBREGISTRY=$(<registries/dockerhub)
 AMAZONREGISTRY=$(<registries/amazon)
 
 push () {
-    printf "DOCKERIMAGEROOT is ${DOCKERIMAGEROOT}\r\n"
+    printf "APPROOT is ${APPROOT}\r\n"
 
     if [[ -z $TAG ]]; then
         TAG="latest"

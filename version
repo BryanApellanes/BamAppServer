@@ -1,1 +1,5 @@
-0.0.11-rc6d8440
+#!/bin/bash
+
+cd ci
+./version.sh $1 $2
+cd ..

@@ -19,7 +19,7 @@ if [[ !(-z $1) ]]; then
 fi
 
 if [[ -z $IMAGEREGISTRY ]]; then
-    export IMAGEREGISTRY=$(<${DOCKERIMAGEROOT}defaultimageregistry)
+    export IMAGEREGISTRY=$(<${APPROOT}/defaultimageregistry)
     printf "using default image registry ${IMAGEREGISTRY}\r\n"
 fi
 

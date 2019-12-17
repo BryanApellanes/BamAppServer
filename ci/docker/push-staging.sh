@@ -12,7 +12,7 @@ fi
 source ./env.sh
 
 ../version.sh staging
-VERSION=$(<${SEMVERROOT}version)
+VERSION=$(<${SEMVERROOT}/version)
 
 if [[ !(-z $1) ]]; then
     export IMAGEREGISTRY=$1
@@ -22,7 +22,7 @@ if [[ !(-z $1) ]]; then
 fi
 
 if [[ -z $IMAGEREGISTRY ]]; then
-    export IMAGEREGISTRY=$(<${DOCKERIMAGEROOT}defaultimageregistry)
+    export IMAGEREGISTRY=$(<${APPROOT}/defaultimageregistry)
     printf "using default image registry ${IMAGEREGISTRY}\r\n"
 fi
 

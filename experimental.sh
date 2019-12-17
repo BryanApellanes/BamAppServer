@@ -1,5 +1,10 @@
 #!/bin/bash
 
-if [[ !(-z $1) ]]; then
-    printf "wasn't blank"
+
+if [[ -d ci ]]; then
+    echo yay
+fi 
+
+if [[ !(-d notthere) ]]; then
+    echo "not there"
 fi

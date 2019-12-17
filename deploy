@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
+    printf "usage: deploy <implementation> [test | staging | release]\r\n"
+    printf "\r\n"
+    printf "Call deloy for the specified implementation flow; the default is 'docker'.\r\n"
+    printf "Possible implementation values are found in the `pwd`/ci directory.\r\n"
+    printf "\r\n"
+    printf "Additional arguments:\r\n"
+    printf "\tdocker - [ test | staging | release ] [ azure | dockerhub | amazon ]\r\n"
+    printf "\r\n"
+    exit 0
+fi
+
+IMPL=$1
+
+if [[ -z $1 ]]; then
+    export IMPL="docker"
+fi
+
+export COMMAND="deploy"
+
+if [[ !(-z $2) ]]; then
+    export TARGETENVIRONMENT=$2
+fi
+
+printf "./exec.sh ${IMPL} ${COMMAND} ${TARGETENVIRONMENT}"
+cd ./ci
+./exec.sh ${IMPL} ${COMMAND} ${TARGETENVIRONMENT}
+cd ..

@@ -1,38 +1,45 @@
 #!/bin/bash
 
-if [[ -z $DOCKERIMAGEROOT ]]; then
-    export DOCKERIMAGEROOT="`pwd`/../../"
+if [[ -z $APPROOT ]]; then
+    export APPROOT="`pwd`/../.."
 fi
 
 if [[ -z $APPNAME ]]; then
-    export APPNAME=$(<${DOCKERIMAGEROOT}defaultappname)
+    export APPNAME=$(<${APPROOT}/defaultappname)
+fi
+
+if [[ -z $SEMVERROOT ]]; then
+    export SEMVERROOT="${APPROOT}/semver"
 fi
 
 if [[ -z $DOCKERFILE ]]; then
-    export DOCKERFILE="`pwd`/Dockerfile"
+    export DOCKERFILE="${APPROOT}/Dockerfile"
 fi
 
 if [[ -z $DEBUGDOCKERFILE ]]; then
-    export DEBUGDOCKERFILE="`pwd`/debug.Dockerfile"
+    export DEBUGDOCKERFILE="${APPROOT}/debug.Dockerfile"
 fi 
 
-if [[ -z $SEMVERROOT ]]; then
-    export SEMVERROOT="${DOCKERIMAGEROOT}semver/"
-fi
-
 if [[ -z $IMAGEREGISTRY ]]; then
-    export IMAGEREGISTRY=$(<${DOCKERIMAGEROOT}defaultimageregistry)
+    export IMAGEREGISTRY=$(<${APPROOT}/defaultimageregistry)
 fi
 
 if [[ -z $REMOTEREGISTRY ]]; then
-    export REMOTEREGISTRY=$(<registries/${IMAGEREGISTRY})
+    if [[ $IMAGEREGISTRY = "amazon" ]]; then 
+        IMAGEREPOSITORY=$(aws ecr get-login --no-include-email | sed 's|.*https://||')
+        echo $IMAGEREPOSITORY > registries/${IMAGEREGISTRY}
+    fi
+    export REMOTEREGISTRY=$(<registries/${IMAGEREGISTRY})    
 fi
 
 if [[ -z $TAG ]]; then
-    export TAG=$(<${SEMVERROOT}version)
+    export TAG=$(<${SEMVERROOT}/version)
 fi
 
-printf "DOCKERIMAGEROOT is ${DOCKERIMAGEROOT}\r\n"
+printf "APPROOT is ${APPROOT}\r\n"
+printf "APPNAME is ${APPNAME}\r\n"
 printf "DOCKERFILE is ${DOCKERFILE}\r\n"
 printf "DEBUGDOCKERFILE is ${DEBUGDOCKERFILE}\r\n"
 printf "SEMVERROOT is ${SEMVERROOT}\r\n"
+printf "IMAGEREGISTRY is ${IMAGEREGISTRY}\r\n"
+printf "REMOTEREGISTRY is ${REMOTEREGISTRY}\r\n"

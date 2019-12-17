@@ -1,8 +1,15 @@
 #!/bin/bash
 
+if [[ -z $APPROOT ]]; then
+    export APPROOT="`pwd`/.."
+fi
+
 if [[ -z $APPNAME ]]; then
-    export APPNAME=$(<../defaultappname)
-    printf "APPNAME is ${APPNAME}\r\n"
+    export APPNAME=$(<${APPROOT}/defaultappname)
+fi
+
+if [[ -z $SEMVERROOT ]]; then
+    export SEMVERROOT="${APPROOT}/semver"
 fi
 
 if [[ -z $IMPL ]]; then
@@ -13,7 +20,9 @@ if [[ -z $IMPL ]]; then
     export IMPL="docker"
 fi
 
-cd ${IMPL}
-source ./env.sh
-cd ..
+if [[ -d ${IMPL} ]]; then
+    cd ${IMPL}
+    source ./env.sh
+    cd ..
+fi
 

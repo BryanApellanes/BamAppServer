@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [[ -z $IMAGEREGISTRY ]]; then
-    export IMAGEREGISTRY=$(<${DOCKERIMAGEROOT}defaultimageregistry)
-    printf "login using IMAGEREGISTRY ${IMAGEREGISTRY}"
+    export IMAGEREGISTRY=$(<${APPROOT}/defaultimageregistry)
+    printf "login will use IMAGEREGISTRY ${IMAGEREGISTRY}"
 fi
 
 if [[ -z $REMOTEREGISTRY ]]; then
     export REMOTEREGISTRY=$(<registries/${IMAGEREGISTRY})
-    printf "login using REMOTEREGISTRY ${REMOTEREGISTRY}"
+    printf "login will use REMOTEREGISTRY ${REMOTEREGISTRY}"
 fi
