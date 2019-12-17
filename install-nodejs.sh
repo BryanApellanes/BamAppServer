@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     printf "usage: install-nodejs.sh\r\n"
     printf "\r\n"
