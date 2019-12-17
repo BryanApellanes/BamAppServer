@@ -7,9 +7,9 @@ pipelines:
         services:
           - docker
         script:
-          - ./docker-login.sh
-          - ./build.sh
-          - ./docker-push-test.sh
+          - ./login docker
+          - ./build docker
+          - ./push docker test
     - step:
         name: Deploy Test
         services:

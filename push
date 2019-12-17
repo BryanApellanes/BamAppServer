@@ -27,7 +27,7 @@ fi
 REGISTRYALIASORPATH=$3
 
 if [[ -z $REGISTRYALIASORPATH ]]; then
-    export REGISTRYALIASORPATH="azure"
+    export REGISTRYALIASORPATH=$(<defaultimageregistry)
 fi
 
 printf "REGISTRYALIASORPATH is ${REGISTRYALIASORPATH}\r\n"
