@@ -17,7 +17,6 @@ fi
 
 export COMMAND="test"
 
-printf "./exec.sh ${IMPL} ${COMMAND}"
 cd ./ci
 ./exec.sh ${IMPL} ${COMMAND}
 cd ..

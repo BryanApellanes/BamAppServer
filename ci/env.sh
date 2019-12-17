@@ -22,7 +22,9 @@ fi
 
 if [[ -d ${IMPL} ]]; then
     cd ${IMPL}
-    source ./env.sh
+    if [[ -f ./env.sh ]]; then
+        source ./env.sh
+    fi
     cd ..
 fi
 

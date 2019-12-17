@@ -22,7 +22,7 @@ pipelines:
         services:
           - docker
         script:
-          - ./test.sh
+          - ./test dev
   branches:
     master:
       - step:
@@ -38,7 +38,7 @@ pipelines:
           services:
             - docker
           script:
-            - ./test.sh
+            - ./test smoke
       - step:
           name: Deploy Release
           trigger: manual
