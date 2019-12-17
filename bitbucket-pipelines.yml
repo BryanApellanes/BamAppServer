@@ -1,5 +1,5 @@
 image: 
-  name: bamapps/bamweb-runtime:0.0.2
+  name: bamapps/bamweb-runtime-aws:0.0.2
 
 pipelines:
   default:
