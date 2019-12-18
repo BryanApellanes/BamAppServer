@@ -12,16 +12,16 @@ if [[ -z $SEMVERROOT ]]; then
     export SEMVERROOT="${APPROOT}/semver"
 fi
 
-if [[ -z $IMPL ]]; then
-    export IMPL=$1
+if [[ -z ${CONTEXT} ]]; then
+    export CONTEXT=$1
 fi
 
-if [[ -z $IMPL ]]; then
-    export IMPL="docker"
+if [[ -z ${CONTEXT} ]]; then
+    export CONTEXT="docker"
 fi
 
-if [[ -d ${IMPL} ]]; then
-    cd ${IMPL}
+if [[ -d ${CONTEXT} ]]; then
+    cd ${CONTEXT}
     if [[ -f ./env.sh ]]; then
         source ./env.sh
     fi

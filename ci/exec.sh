@@ -1,10 +1,10 @@
 #!/bin/bash
 
-IMPL=$1
-COMMAND=$2
+export CONTEXT=$1
+export COMMAND=$2
 
-if [[ -z $IMPL ]]; then
-    export IMPL="docker"
+if [[ -z ${CONTEXT} ]]; then
+    export CONTEXT="docker"
 fi
 
 if [[ -z $COMMAND ]]; then
@@ -13,13 +13,16 @@ fi
 
 source ./env.sh
 
-printf "executing => ${IMPL}/${COMMAND}.sh $3 $4 $5\r\n"
+printf "executing => ${CONTEXT}/${COMMAND}.sh $3 $4 $5\r\n"
 
-if [[ !(-d ${IMPL}) ]]; then
-    printf "`pwd`/${IMPL} folder doesn't exist\r\n"
+if [[ !(-d ${CONTEXT}) ]]; then
+    printf "\r\n"
+    printf "`pwd`/${CONTEXT} folder doesn't exist.\r\n"
+    printf "The command '${COMMAND}' cannot be run for the specified context '${CONTEXT}''.\r\n"
+    printf "\r\n"
     exit 1
 fi
 
-cd ${IMPL}
-./${COMMAND}.sh $3 $4 $5
+cd ${CONTEXT}
+./${COMMAND}.sh $3 $4 $5 $6
 cd ..

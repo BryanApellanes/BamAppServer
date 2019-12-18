@@ -8,4 +8,9 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     exit 0;
 fi
 
+if [[ -z ${IMAGETAG} ]]; then
+    IMAGETAG=$1
+fi
+
+echo "IMAGETAG = ${IMAGETAG}"
 echo "TODO: add release deploy code here"

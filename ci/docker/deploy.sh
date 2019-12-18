@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: deploy.sh [test | staging | release]\r\n"
+    printf "usage: deploy.sh <test | staging | release> [ {image-tag} ]\r\n"
     printf "\r\n"
     printf "Deploy the project to the test or release environment."
     printf "\r\n"
@@ -16,9 +16,17 @@ else
     export TARGETENVIRONMENT=$1
 fi
 
+if [[ -z ${IMAGETAG} ]]; then
+    export IMAGETAG="publish"
+fi
+
+if [[ !(-z $2) ]]; then
+    export IMAGETAG=$2
+fi
+
 printf "TARGETENVIRONMENT is ${TARGETENVIRONMENT}\r\n"
 printf "CURDIR is `pwd`\r\n"
 
 cd deploy
-./${TARGETENVIRONMENT}.sh
+./${TARGETENVIRONMENT}.sh ${IMAGETAG}
 cd ..
