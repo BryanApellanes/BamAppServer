@@ -45,4 +45,4 @@ pipelines:
           services:
             - docker
           script: 
-            - ./deploy.sh release    
+            - ./deploy docker release    

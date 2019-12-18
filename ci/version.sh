@@ -4,7 +4,7 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     printf "usage: version.sh [ major | minor | patch ] [ staging | release ]\r\n"
     printf "\r\n"
     printf "Updates the current version of this project.  Version components are found in the semver folder in the files 'major', 'minor' and 'patch' with the\r\n"
-    printf "full version found in the file 'version'."
+    printf "full version found in the file 'version'.\r\n"
     printf "\r\n"
     exit 0;
 fi

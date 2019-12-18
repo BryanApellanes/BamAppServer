@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: push <implementation> [additional arguments]\r\n"
+    printf "usage: push <context> [additional arguments]\r\n"
     printf "\r\n"
     printf "Call push for the specified context; the default is 'docker'.\r\n"
-    printf "Possible implementation values are found in the ./ci directory.\r\n"
+    printf "Possible context values are found in the `pwd`/ci directory.\r\n"
     printf "\r\n"
-    printf "IMPLEMENTATION HELP -- \r\n"
+    printf "CONTEXT HELP -- \r\n"
     ./ci/docker/push.sh -?
     exit 0
 fi
