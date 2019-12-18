@@ -3,8 +3,10 @@
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     printf "usage: test.sh <context>\r\n"
     printf "\r\n"
-    printf "Call clean for the specified context; the default is 'docker'.\r\n"
-    printf "Possible context values are found in the ./ci directory.\r\n"
+    printf "Call test for the specified pipeline context; the default is 'dev'.\r\n"
+    if [[ -f contexts.sh ]]; then
+        ./contexts.sh
+    fi
     printf "\r\n"
     exit 0
 fi

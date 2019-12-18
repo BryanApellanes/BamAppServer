@@ -24,13 +24,6 @@ if [[ !(-d ${CONTEXT}) ]]; then
     exit 1
 fi
 
-if [[ !(-f ${CONTEXT}/${COMMAND}) ]]; then
-    printf "\r\n"
-    printf "`pwd`/${CONTEXT}/${COMMAND}.sh script doesn't exist.\r\n"
-    printf "\r\n"
-    exit 1
-fi
-
 printf "executing => ${CONTEXT}/${COMMAND}.sh $3 $4 $5 $6\r\n"
 cd ${CONTEXT}
 ./${COMMAND}.sh $3 $4 $5 $6
