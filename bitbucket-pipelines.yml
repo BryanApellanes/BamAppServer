@@ -70,6 +70,7 @@ pipelines:
             - ./deploy docker release
       - step:
           name: Execute Smoke Tests
+          trigger: manual
           services:
             - docker
           script:
