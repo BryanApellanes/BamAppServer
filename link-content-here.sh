@@ -8,8 +8,8 @@ then
     printf "replaced by a link targeting `pwd`.\r\n\r\n"
     printf "If ~/.bam/content is not a symlink but an actual directory no action is taken.  If ~/.bam/content is a symlink that targets `pwd` no action is taken."
     printf "\r\n"
-
-else
+    exit 0
+fi
 
 if [[ ! -f ~/.bam/content ]] || [[ -L ~/.bam/content ]]
     then
@@ -46,5 +46,3 @@ else
 echo '/opt/bam/content is not a symlink'
 
 fi 
-
-fi

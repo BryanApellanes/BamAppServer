@@ -28,5 +28,12 @@ printf "TARGETENVIRONMENT is ${TARGETENVIRONMENT}\r\n"
 printf "CURDIR is `pwd`\r\n"
 
 cd deploy
-./${TARGETENVIRONMENT}.sh ${IMAGETAG}
+if [[ -f ./${TARGETENVIRONMENT}.sh ]]; then
+    ./${TARGETENVIRONMENT}.sh ${IMAGETAG}
+else
+    printf "\r\n"
+    printf "CI deployment script 'docker/deploy/${TARGETENVIRONMENT}.sh' not found\r\n"
+    printf "\r\n"
+    exit 1
+fi
 cd ..

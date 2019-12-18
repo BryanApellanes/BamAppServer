@@ -13,4 +13,4 @@ if [[ -z ${IMAGETAG} ]]; then
 fi
 
 echo "IMAGETAG = ${IMAGETAG}"
-echo "TODO: add test deploy code here"
+echo "TODO: Add code to deploy to the 'test' environment here."
