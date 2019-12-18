@@ -12,51 +12,65 @@ pipelines:
           - ./build docker
           - ./push docker test
     - step:
-        name: Deploy Test
+        name: Deploy to Test
         services:
           - docker
         script:
           - ./deploy docker test
     - step:
-        name: Test
+        name: Execute Dev Pipeline Tests
         services:
           - docker
         script:
           - ./test pipeline dev
     - step:
-        name: Deploy Staging
+        name: Deploy to Staging
         trigger: manual
         services:
           - docker
         script: 
-          - ./deploy docker staging  
-  branches:
-    master:
-      - step:
-        name: Build
+          - ./deploy docker staging
+    - step:
+        name: Execute Staging Pipeline Tests
+        trigger: manual
         services:
           - docker
         script:
-          - ./login docker
-          - ./build docker
-          - ./push docker release
+          - ./test pipeline staging
+  branches:
+    master:
       - step:
-          name: Test
+          name: Build
           services:
             - docker
           script:
-            - ./test pipeline smoke
+            - ./login docker
+            - ./build docker
+            - ./push docker release
       - step:
-        name: Deploy Staging
-        trigger: manual
-        services:
-          - docker
-        script: 
-          - ./deploy docker staging 
+          name: Deploy Staging
+          trigger: manual
+          services:
+            - docker
+          script: 
+            - ./deploy docker staging 
+      - step:
+          name: Execute Staging Pipeline Tests
+          trigger: manual
+          services:
+            - docker
+          script:
+            - ./test pipeline staging
       - step:
           name: Deploy Release
           trigger: manual
           services:
             - docker
           script: 
-            - ./deploy docker release    
+            - ./deploy docker release
+      - step:
+          name: Execute Smoke Tests
+          services:
+            - docker
+          script:
+            - ./test pipeline smoke
