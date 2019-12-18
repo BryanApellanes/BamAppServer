@@ -16,9 +16,9 @@ pipelines:
         services:
           - docker
         script:
-          - ./deploy docker test
+          - ./deploy pipeline test
     - step:
-        name: Execute Dev Pipeline Tests
+        name: Execute Dev Tests
         services:
           - docker
         script:
@@ -29,9 +29,9 @@ pipelines:
         services:
           - docker
         script: 
-          - ./deploy docker staging
+          - ./deploy pipeline staging
     - step:
-        name: Execute Staging Pipeline Tests
+        name: Execute Staging Tests
         trigger: manual
         services:
           - docker
@@ -53,9 +53,9 @@ pipelines:
           services:
             - docker
           script: 
-            - ./deploy docker staging 
+            - ./deploy pipeline staging 
       - step:
-          name: Execute Staging Pipeline Tests
+          name: Execute Staging Tests
           trigger: manual
           services:
             - docker
@@ -67,9 +67,10 @@ pipelines:
           services:
             - docker
           script: 
-            - ./deploy docker release
+            - ./deploy pipeline release
       - step:
           name: Execute Smoke Tests
+          trigger: manual
           services:
             - docker
           script:
