@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
-    printf "usage: docker-debug.sh container | image <image-name | container-id>\r\n"
+    printf "usage: debug.sh container | image <image-name | container-id>\r\n"
     printf "\r\n"
     printf "Starts a bash prompt in the specified image or container to explore and debug its content."
     printf "\r\n"
@@ -35,6 +35,5 @@ if [[ $# -eq 2 ]]; then
         CONTAINER_ID=$1
     fi
 fi
-
 
 docker $COMMAND -it $CONTAINER_ID bash

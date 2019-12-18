@@ -1,4 +1,5 @@
-image: microsoft/dotnet:sdk
+image: 
+  name: bamapps/bamweb-runtime-aws:0.0.2
 
 pipelines:
   default:
@@ -7,37 +8,40 @@ pipelines:
         services:
           - docker
         script:
-          - ./build.sh
-          - ./docker-push-test.sh
+          - ./login docker
+          - ./build docker
+          - ./push docker test
     - step:
         name: Deploy Test
         services:
           - docker
         script:
-          - ./deploy.sh test
+          - ./deploy docker test
     - step:
         name: Test
         services:
           - docker
         script:
-          - ./test.sh
+          - ./test dev
   branches:
     master:
       - step:
-          name: Build
-          services:
-            - docker
-          script:
-            - ./build.sh
-            - ./docker-push-release.sh
-      - step:
-        name: Test
+        name: Build
         services:
           - docker
         script:
-          - ./test.sh
+          - ./login docker
+          - ./build docker
+          - ./push docker release
+      - step:
+          name: Test
+          services:
+            - docker
+          script:
+            - ./test smoke
       - step:
           name: Deploy Release
+          trigger: manual
           services:
             - docker
           script: 

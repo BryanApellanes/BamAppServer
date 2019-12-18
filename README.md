@@ -28,6 +28,14 @@ To prepare and run vimly-admin locally do the following:
     `./serve.sh`
 7. using a browser, open `http://vimly-admin`
 
-## Docker Build
+## Developer Workflow
 
-To build a docker container for the current state of the vimly-admin repository/project execute the `docker-build.sh` script.
+The following scripts are used to facilitate developer workflow:
+
+- clean
+- build
+- debug
+- push
+- test
+- deploy
+
