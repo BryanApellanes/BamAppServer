@@ -23,6 +23,13 @@ pipelines:
           - docker
         script:
           - ./test pipeline dev
+    - step:
+        name: Deploy Staging
+        trigger: manual
+        services:
+          - docker
+        script: 
+          - ./deploy docker staging  
   branches:
     master:
       - step:
@@ -39,6 +46,13 @@ pipelines:
             - docker
           script:
             - ./test pipeline smoke
+      - step:
+        name: Deploy Staging
+        trigger: manual
+        services:
+          - docker
+        script: 
+          - ./deploy docker staging 
       - step:
           name: Deploy Release
           trigger: manual
