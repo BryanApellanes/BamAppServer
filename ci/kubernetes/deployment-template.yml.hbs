@@ -1,0 +1,21 @@
+apiVersion: apps/vi
+kind: Deployment
+metadata:
+  name: {{AppName}}-deployment
+  labels:
+    app: {{AppName}}
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: {{AppName}}
+    template:
+      metadata:
+        labels:
+          app: {{AppName}}
+      spec:
+        containers:
+        - name: {{AppName}}
+          image: {{AppName}}:{{Tag}}
+          ports:
+          - containerPort: 80

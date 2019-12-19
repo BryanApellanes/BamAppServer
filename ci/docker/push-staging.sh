@@ -33,5 +33,6 @@ fi
 
 printf "REMOTEREGISTRY is ${REMOTEREGISTRY}\r\n"
 COMMIT=$(git log --format="%H" -n 1 | cut -c 1-6)
+./push.sh ${REMOTEREGISTRY} "staging"
 ./push.sh ${REMOTEREGISTRY} ${VERSION}
 ./push.sh ${REMOTEREGISTRY} ${VERSION}-${COMMIT}

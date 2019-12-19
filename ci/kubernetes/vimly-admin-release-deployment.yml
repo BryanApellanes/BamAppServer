@@ -16,4 +16,6 @@ metadata:
       spec:
         containers:
         - name: vimly-admin
-          image: vimly-admin:publish
+          image: vimly-admin:release
+          ports:
+          - containerPort: 80
