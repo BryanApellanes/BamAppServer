@@ -13,7 +13,7 @@ if [[ -z ${IMAGETAG} ]]; then
 fi
 
 DEPLOYCONTEXT=test
-DEPLOYNAMESPACE=proj05
+DEPLOYNAMESPACE=dev
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
