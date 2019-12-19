@@ -1,11 +1,11 @@
 {
   "ContentRoot": {
     "RootDir": {
-      "OriginalPath": "C:\\BamContent\\common",
-      "FullPath": "C:\\BamContent\\common"
+      "OriginalPath": "/opt/bam/content/common",
+      "FullPath": "/opt/bam/content/common"
     },
-    "Root": "C:\\BamContent\\common\\",
-    "CurrentDirectory": "C:\\BamContent\\common\\"
+    "Root": "/opt/bam/content/common",
+    "CurrentDirectory": "/opt/bam/content/common"
   },
   "SearchRules": [
     {

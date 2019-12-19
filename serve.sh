@@ -6,8 +6,8 @@ then
     printf "\r\n"
     printf "serve the default section of the default application"
     printf "\r\n"
-
-else
+    exit 0
+fi
 
 ./link-content-here.sh
 
@@ -19,4 +19,3 @@ echo serving $SECTION section of $APPNAME
 cd apps/$APPNAME
 ./serve-section.sh $SECTION
 
-fi

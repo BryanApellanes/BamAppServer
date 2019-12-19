@@ -1,2 +1,0 @@
-## TODO 
-explore maintaining a list of reference assemblies; may be better to use a csproj

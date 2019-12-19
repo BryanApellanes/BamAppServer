@@ -4,7 +4,7 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]
 then
     printf "usage: source setup.sh\r\n"
     printf "\r\n"
-    printf "Build and install the bam toolkit.\r\n"
+    printf "Build and install the bam toolkit from source.\r\n"
     printf "\r\n"
     exit 0
 fi

@@ -4,23 +4,7 @@
     "AppName": "bamapp"
   },
   {
-    "Host": "bamdb",
-    "AppName": "bamdb"
-  },
-  {
     "Host": "vimly-admin",
     "AppName": "vimly-admin"
-  },
-  {
-    "Host": "localhost",
-    "AppName": "localhost"
-  },
-  {
-    "Host": "admin",
-    "AppName": "admin"
-  },
-  {
-    "Host": "vimly",
-    "AppName": "vimly"
   }
 ]
