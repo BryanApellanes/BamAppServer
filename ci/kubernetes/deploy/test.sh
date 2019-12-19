@@ -17,6 +17,7 @@ DEPLOYNAMESPACE=proj05
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
+../configure.sh
 echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
 if [[ -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml ]]; then
