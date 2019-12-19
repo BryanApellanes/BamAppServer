@@ -21,7 +21,7 @@ echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
 if [[ -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml ]]; then
     echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml exists"
-    kubectl config use-context bitbucket-pipeline-integration
+    kubectl config use-context bitbucket-pipeline-staging
     kubectl version 
     kubectl apply -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
     ../verify.sh ${APPNAME} ${DEPLOYNAMESPACE}

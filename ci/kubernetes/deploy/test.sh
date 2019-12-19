@@ -13,7 +13,7 @@ if [[ -z ${IMAGETAG} ]]; then
 fi
 
 DEPLOYCONTEXT=test
-DEPLOYNAMESPACE=dev
+DEPLOYNAMESPACE=test
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
@@ -22,7 +22,7 @@ echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
 if [[ -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml ]]; then
     echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml exists"
-    kubectl config use-context bitbucket-pipeline-integration
+    kubectl config use-context bitbucket-pipeline-test
     kubectl version 
     kubectl apply -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
     ../verify.sh ${APPNAME} ${DEPLOYNAMESPACE}
