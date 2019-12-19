@@ -1,1 +1,1 @@
-../docker/deploy.sh
+../deploy.sh

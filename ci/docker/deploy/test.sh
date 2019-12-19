@@ -12,5 +12,6 @@ if [[ -z ${IMAGETAG} ]]; then
     IMAGETAG=$1
 fi
 
+echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
-echo "TODO: Add code to deploy to the 'test' environment here."
+echo "TODO: Add code to do DOCKER deployment to the 'test' environment here."

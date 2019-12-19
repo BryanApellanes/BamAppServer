@@ -9,3 +9,4 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     exit 0
 fi
 
+echo "You are in the ${PWD##*/} context"

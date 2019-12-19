@@ -14,4 +14,4 @@ fi
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
-echo "TODO: Add code to do DOCKER deployment to the 'release' environment here."
+echo "TODO: Add code to do KUBERNETES deploy to the 'release' environment here."
