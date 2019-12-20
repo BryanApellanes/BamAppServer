@@ -6,8 +6,8 @@ if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
     printf "Call push for the specified context; the default is 'docker'.\r\n"
     printf "Possible context values are found in the `pwd`/ci directory.\r\n"
     printf "\r\n"
-    printf "CONTEXT HELP -- \r\n"
-    ./ci/docker/push.sh -?
+    printf "docker usage: push docker [ test | staging | release ]\r\n"
+    printf "\r\n"
     exit 0
 fi
 

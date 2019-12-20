@@ -16,6 +16,7 @@ pipelines:
         services:
           - docker
         script:
+          - ./install-kubectl.sh
           - ./deploy pipeline test
     - step:
         name: Execute Dev Tests
@@ -53,6 +54,7 @@ pipelines:
           services:
             - docker
           script: 
+            - ./install-kubectl.sh
             - ./deploy pipeline staging 
       - step:
           name: Execute Staging Tests

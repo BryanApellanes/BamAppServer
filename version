@@ -1,5 +1,10 @@
 #!/bin/bash
 
 cd ci
-./version.sh $1 $2
+if [[ $1 = "-help" ]] || [[ $1 = "-?" ]] || [[ $1 = "-h" ]]; then
+    ./version.sh -?
+    exit 0
+else
+    ./version.sh $1 $2
+fi
 cd ..

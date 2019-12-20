@@ -27,4 +27,3 @@ if [[ -d ${CONTEXT} ]]; then
     fi
     cd ..
 fi
-
