@@ -1,21 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vimly-admin-deployment
+  name: vimly-admin-deployment-staging
+  namespace: vimly-admin
   labels:
     app: vimly-admin
-  spec:
-    replicas: 1
-    selector:
-      matchLabels:
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vimly-admin
+  template:
+    metadata:
+      labels:
         app: vimly-admin
-    template:
-      metadata:
-        labels:
-          app: vimly-admin
-      spec:
-        containers:
-        - name: vimly-admin
-          image: vimly-admin:release
-          ports:
-          - containerPort: 80
+    spec:
+      containers:
+      - name: vimly-admin
+        image: 550475323052.dkr.ecr.us-west-2.amazonaws.com/vimly-admin:release
+        resources:
+            limits:
+              cpu: 100m
+              memory: "2Gi"
+        ports:
+        - containerPort: 80

@@ -22,10 +22,11 @@ echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
 if [[ -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml ]]; then
     echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml exists"
-    kubectl config use-context bitbucket-pipeline-test
-    kubectl version 
-    kubectl apply -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
-    ../verify.sh ${APPNAME} ${DEPLOYNAMESPACE}
+    echo "TODO: implement test deployment."
+    # kubectl config use-context vimly-admin-pipeline-test
+    # kubectl version 
+    # kubectl apply -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
+    # ../verify.sh ${APPNAME} ${DEPLOYNAMESPACE}
 else
     echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml DOES NOT exist"
 fi

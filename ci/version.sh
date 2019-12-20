@@ -31,7 +31,8 @@ PATCH=$(<${SEMVERROOT}/patch)
 CURRENTVERSION=$(<${SEMVERROOT}/version)
 
 if [[ $1 = "show" ]]; then
-
+    echo ${CURRENTVERSION}
+    exit 0
 fi
 
 COMMIT=$(git log --format="%H" -n 1 | cut -c 1-6)    
