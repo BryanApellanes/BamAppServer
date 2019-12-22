@@ -1,29 +1,36 @@
 {
-  "name": "content",
-  "version": "1.0.0",
-  "description": "Bam Content",
+  "name": "@vimly/vimly-admin",
+  "version": "0.0.1",
+  "description": "Vimly Admin",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./tests/* --reporter spec",
+    "test": "mocha ./tests/* --reporter spec",
     "webpack": "webpack",
     "build": "node ./build/webpack-build.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@git:BryanApellanes/BamContent.git"
+    "url": "git+https://bapellanes@bitbucket.org/bsiprojectjedan/vimly-admin.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bryan Apellanes",
   "license": "ISC",
   "devDependencies": {
     "codeceptjs": "^1.1.5",
     "mocha": "^5.0.1",
-    "webpack": "^3.11.0"
+    "webpack": "^3.12.0"
   },
   "dependencies": {
     "@bryanapellanes/bam.js": "^1.0.4",
     "chai": "^4.1.2",
-    "electron": "^4.1.3",
-    "node-forge": "^0.7.1"
+    "css-loader": "^3.2.0",
+    "handlebars": "^4.5.3",
+    "jquery": "^3.4.1",
+    "node-forge": "^0.7.1",
+    "shelljs": "^0.8.3"
+  },
+  "homepage": "https://bitbucket.org/bsiprojectjedan/vimly-admin#readme",
+  "directories": {
+    "test": "tests"
   }
 }

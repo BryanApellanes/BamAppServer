@@ -2,5 +2,9 @@
   {
     "Host": "bamapp",
     "AppName": "bamapp"
+  },
+  {
+    "Host": "vimly-admin",
+    "AppName": "vimly-admin"
   }
 ]

@@ -1,0 +1,79 @@
+image: 
+  name: bamapps/bamweb-runtime-aws:0.0.2
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        services:
+          - docker
+        script:
+          - ./login docker
+          - ./build docker
+          - ./push docker test
+    - step:
+        name: Deploy to Test
+        services:
+          - docker
+        script:
+          - ./install-kubectl.sh
+          - ./deploy pipeline test
+    - step:
+        name: Execute Dev Tests
+        services:
+          - docker
+        script:
+          - ./test pipeline dev
+    - step:
+        name: Deploy to Staging
+        trigger: manual
+        services:
+          - docker
+        script: 
+          - ./deploy pipeline staging
+    - step:
+        name: Execute Staging Tests
+        trigger: manual
+        services:
+          - docker
+        script:
+          - ./test pipeline staging
+  branches:
+    master:
+      - step:
+          name: Build
+          services:
+            - docker
+          script:
+            - ./login docker
+            - ./build docker
+            - ./push docker release
+      - step:
+          name: Deploy Staging
+          trigger: manual
+          services:
+            - docker
+          script: 
+            - ./install-kubectl.sh
+            - ./deploy pipeline staging 
+      - step:
+          name: Execute Staging Tests
+          trigger: manual
+          services:
+            - docker
+          script:
+            - ./test pipeline staging
+      - step:
+          name: Deploy Release
+          trigger: manual
+          services:
+            - docker
+          script: 
+            - ./deploy pipeline release
+      - step:
+          name: Execute Smoke Tests
+          trigger: manual
+          services:
+            - docker
+          script:
+            - ./test pipeline smoke

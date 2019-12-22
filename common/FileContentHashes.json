@@ -14,5 +14,9 @@
   {
     "FilePath": "/opt/bam/content/common/daoref.db.js",
     "Sha1": "b7479c4fb5ba6f4d040b5dffd2b52004bb4ccc3f"
+  },
+  {
+    "FilePath": "/users/bapellanes/.bam/content/common/daoref.db.js",
+    "Sha1": "b7479c4fb5ba6f4d040b5dffd2b52004bb4ccc3f"
   }
 ]
