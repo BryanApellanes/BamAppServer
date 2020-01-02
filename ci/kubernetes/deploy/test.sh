@@ -22,7 +22,7 @@ if [[ !(-f $DEPLOYMENTFILE) ]]; then
     exit 1;
 fi
 
-if [[ !(-f SERVICEFILE) ]]; then
+if [[ !(-f $SERVICEFILE) ]]; then
     echo "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
     exit 1;
 fi
