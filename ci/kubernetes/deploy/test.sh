@@ -13,18 +13,18 @@ if [[ -z ${IMAGETAG} ]]; then
 fi
 
 DEPLOYCONTEXT=test
-DEPLOYMENTFILE=../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
-SERVICEFILE=../configs/${APPNAME}-service.yml
+DEPLOYMENTFILE=`pwd`/../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
+SERVICEFILE=`pwd`/../configs/${APPNAME}-service.yml
 KUBECONFIG=~/.kube/ci-${DEPLOYCONTEXT}-config
 
 if [[ !(-f $DEPLOYMENTFILE) ]]; then
     echo "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
-    return 1;
+    exit 1;
 fi
 
 if [[ !(-f SERVICEFILE) ]]; then
     echo "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
-    return 1;
+    exit 1;
 fi
 
 echo "Current context is ${PWD##*/}"
