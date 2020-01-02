@@ -17,6 +17,8 @@ DEPLOYMENTFILE=`pwd`/../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
 SERVICEFILE=`pwd`/../configs/${APPNAME}-service.yml
 KUBECONFIG=~/.kube/ci-${DEPLOYCONTEXT}-config
 
+mkdir -p ~/.kube
+
 if [[ !(-f $DEPLOYMENTFILE) ]]; then
     echo "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
     exit 1;
