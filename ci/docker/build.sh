@@ -12,8 +12,8 @@ source ./env.sh
 
 CURDIR=`pwd`
 cd $APPROOT
-printf "pulling submodules"
-git pull --recurse-submodules
+printf "pulling submodules\r\n"
+git submodule update --init -recursive
 cd $CURDIR
 
 printf "executing => 'docker build -t ${APPNAME}-debug ${APPROOT} -f ${DEBUGDOCKERFILE}'\r\n"
