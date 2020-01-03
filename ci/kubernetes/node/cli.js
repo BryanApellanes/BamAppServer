@@ -1,7 +1,4 @@
 var cli = (function(){
-    var templateRoot = '../../templates/',
-        colors = require('colors');
-
     var _ = require('lodash'),
         handlebars = require('handlebars');
 
