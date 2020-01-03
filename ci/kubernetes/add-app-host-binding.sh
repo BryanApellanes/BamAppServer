@@ -6,4 +6,4 @@ HOSTNAME=`echo $HOSTNAME | cut -c 2-`
 HOSTNAME=${HOSTNAME%?}
 # / trim the quotes
 
-node ../../common/bamjs/bam cli -app:$APPNAME -add:app-host-binding -hostName:$HOSTNAME -content:$APPROOT
+node ../../common/bamjs/bam.js cli -app:$APPNAME -add:app-host-binding -hostName:$HOSTNAME -content:$APPROOT
