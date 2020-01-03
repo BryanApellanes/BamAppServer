@@ -18,11 +18,6 @@
       "Ssl": true
     },
     {
-      "HostName": "a43a85f2f233811ea98ef062db080fb8-1205341077.us-west-2.elb.amazonaws.com",
-      "Port": 80,
-      "Ssl": false
-    },
-    {
       "HostName": "vimly-admin",
       "Port": 80,
       "Ssl": false

@@ -33,6 +33,7 @@ pipelines:
           - ./deploy pipeline staging
     - step:
         name: Execute Staging Tests
+        label: Execute
         trigger: manual
         services:
           - docker

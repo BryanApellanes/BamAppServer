@@ -31,6 +31,7 @@ fi
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
+echo "APPROOT is ${APPROOT}"
 
 echo "Writing kubernetes config ${KUBECONFIG}...\r\n"
 source ../../kubernetes/configure.sh $KUBECONFIG
@@ -44,3 +45,8 @@ kubectl apply -f ${DEPLOYMENTFILE}
 
 echo "Applying kubernetes service file ${SERVICEFILE}\r\n"
 kubectl apply -f ${SERVICEFILE}
+
+sleep 3
+
+../../kubernetes/add-app-host-binding.sh
+
