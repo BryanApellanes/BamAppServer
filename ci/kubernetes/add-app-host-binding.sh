@@ -6,4 +6,8 @@ HOSTNAME=`echo $HOSTNAME | cut -c 2-`
 export HOSTNAME=${HOSTNAME%?}
 # / trim the quotes
 
-node ./node/cli.js shellExecute -app:${APPNAME} -add:app-host-binding -hostName:${HOSTNAME} -content:${APPROOT}
+CURDIR=`pwd`
+cd ./node
+npm install
+node ./cli.js shellExecute -app:${APPNAME} -add:app-host-binding -hostName:${HOSTNAME} -content:${APPROOT}
+cd $CURDIR
