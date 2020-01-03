@@ -12,6 +12,7 @@ source ./env.sh
 
 CURDIR=`pwd`
 cd $APPROOT
+printf "pulling submodules"
 git pull --recurse-submodules
 cd $CURDIR
 
