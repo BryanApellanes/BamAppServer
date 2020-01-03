@@ -48,5 +48,8 @@ kubectl apply -f ${SERVICEFILE}
 
 sleep 3
 
-../../kubernetes/add-app-host-binding.sh
+CURDIR=`pwd`
+cd ../../kubernetes
+./add-app-host-binding.sh
+cd $CURDIR
 
