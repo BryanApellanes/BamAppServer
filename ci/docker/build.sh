@@ -10,6 +10,11 @@ fi
 
 source ./env.sh
 
+CURDIR=`pwd`
+cd $APPROOT
+git pull --recurse-submodules
+cd $CURDIR
+
 printf "executing => 'docker build -t ${APPNAME}-debug ${APPROOT} -f ${DEBUGDOCKERFILE}'\r\n"
 docker build -t ${APPNAME}-debug ${APPROOT} -f ${DEBUGDOCKERFILE}
 
