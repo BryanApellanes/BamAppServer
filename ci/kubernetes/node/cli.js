@@ -1,5 +1,6 @@
 var cli = (function(){
     var _ = require('lodash'),
+        colors = require('colors'),
         handlebars = require('handlebars');
 
     var _cli = _.extend({}, {
