@@ -21,6 +21,11 @@
       "HostName": "vimly-admin",
       "Port": 80,
       "Ssl": false
+    },
+    {
+      "HostName": "a4c0307772d8a11ea98ef062db080fb8-396694921.us-west-2.elb.amazonaws.com",
+      "Port": 80,
+      "Ssl": false
     }
   ],
   "AppSettings": [],
