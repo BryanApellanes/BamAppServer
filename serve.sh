@@ -17,5 +17,8 @@ SECTION=$(<apps/$APPNAME/defaultsection)
 echo serving $SECTION section of $APPNAME
 
 cd apps/$APPNAME
+if [[ -f ./init.sh ]]; then
+    ./init.sh
+fi
 ./serve-section.sh $SECTION
 

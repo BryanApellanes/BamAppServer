@@ -13,20 +13,39 @@ if [[ -z ${IMAGETAG} ]]; then
 fi
 
 DEPLOYCONTEXT=test
-DEPLOYNAMESPACE=test
+DEPLOYMENTFILE=`pwd`/../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
+SERVICEFILE=`pwd`/../configs/${APPNAME}-service.yml
+KUBECONFIG=~/.kube/ci-${DEPLOYCONTEXT}-config
+
+mkdir -p ~/.kube
+
+if [[ !(-f $DEPLOYMENTFILE) ]]; then
+    echo "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
+    exit 1;
+fi
+
+if [[ !(-f $SERVICEFILE) ]]; then
+    echo "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
+    exit 1;
+fi
 
 echo "Current context is ${PWD##*/}"
 echo "IMAGETAG = ${IMAGETAG}"
-../configure.sh
+echo "APPROOT is ${APPROOT}"
+
+echo "Writing kubernetes config ${KUBECONFIG}...\r\n"
+source ../../kubernetes/configure.sh $KUBECONFIG
+echo "Wrote kubernetes config ${KUBECONFIG}.\r\n"
+echo "KUBECONFIG=$KUBECONFIG"
+
 echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
-if [[ -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml ]]; then
-    echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml exists"
-    echo "TODO: implement test deployment."
-    # kubectl config use-context vimly-admin-pipeline-test
-    # kubectl version 
-    # kubectl apply -f ../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml
-    # ../verify.sh ${APPNAME} ${DEPLOYNAMESPACE}
-else
-    echo "../configs/${APPNAME}-${DEPLOYCONTEXT}-deployment.yml DOES NOT exist"
-fi
+echo "Applying kubernetes deployment file ${DEPLOYMENTFILE}\r\n"
+kubectl apply -f ${DEPLOYMENTFILE}
+
+echo "Applying kubernetes service file ${SERVICEFILE}\r\n"
+kubectl apply -f ${SERVICEFILE}
+
+sleep 3
+
+../../kubernetes/get-hostname.sh
