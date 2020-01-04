@@ -48,8 +48,4 @@ kubectl apply -f ${SERVICEFILE}
 
 sleep 3
 
-CURDIR=`pwd`
-cd ../../kubernetes
-./add-app-host-binding.sh
-cd $CURDIR
-
+../../kubernetes/get-hostname.sh

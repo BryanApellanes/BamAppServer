@@ -26,6 +26,11 @@
       "HostName": "a4c0307772d8a11ea98ef062db080fb8-396694921.us-west-2.elb.amazonaws.com",
       "Port": 80,
       "Ssl": false
+    },
+    {
+      "HostName": "a93a7e84c2e5d11ea98ef062db080fb8-2085955410.us-west-2.elb.amazonaws.com",
+      "Port": 80,
+      "Ssl": false
     }
   ],
   "AppSettings": [],
