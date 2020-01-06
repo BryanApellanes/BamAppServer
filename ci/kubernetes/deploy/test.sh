@@ -19,12 +19,12 @@ KUBECONFIG=~/.kube/ci-${DEPLOYCONTEXT}-config
 
 mkdir -p ~/.kube
 
-if [[ !(-f $DEPLOYMENTFILE) ]]; then
+if [[ !(-f ${DEPLOYMENTFILE}) ]]; then
     echo "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
     exit 1;
 fi
 
-if [[ !(-f $SERVICEFILE) ]]; then
+if [[ !(-f ${SERVICEFILE}) ]]; then
     echo "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
     exit 1;
 fi
@@ -48,4 +48,18 @@ kubectl apply -f ${SERVICEFILE}
 
 sleep 3
 
-../../kubernetes/get-hostname.sh
+HOSTNAME=`../../kubernetes/get-hostname.sh`
+echo "\r\n${APPNAME} hostname is: "
+$HOSTNAME
+echo "\rn"
+
+echo "\r\n${APPNAME} load balancer ip is: "
+../../kubernetes/get-loadbalancer-ip.sh
+echo "\r\nHowever that is uninteresting; see below..."
+DIG=`which dig`
+if [[ -z $DIG ]]; then
+    echo "'dig' not found; use the following command to determine ip address(es) for ${APPNAME}\r\n\r\n"
+    echo "\tdig ${HOSTNAME}\r\n\r\n"
+else
+    dig $HOSTNAME
+fi
