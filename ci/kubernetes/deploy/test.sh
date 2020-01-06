@@ -20,46 +20,44 @@ KUBECONFIG=~/.kube/ci-${DEPLOYCONTEXT}-config
 mkdir -p ~/.kube
 
 if [[ !(-f ${DEPLOYMENTFILE}) ]]; then
-    echo "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
+    printf "Kubernetes deployment file ${DEPLOYMENTFILE} does not exist\r\n"
     exit 1;
 fi
 
 if [[ !(-f ${SERVICEFILE}) ]]; then
-    echo "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
+    printf "Kubernetes service file ${SERVICEFILE} does not exist\r\n"
     exit 1;
 fi
 
-echo "Current context is ${PWD##*/}"
-echo "IMAGETAG = ${IMAGETAG}"
-echo "APPROOT is ${APPROOT}"
+printf "Current context is ${PWD##*/}"
+printf "IMAGETAG = ${IMAGETAG}"
+printf "APPROOT is ${APPROOT}"
 
-echo "Writing kubernetes config ${KUBECONFIG}...\r\n"
+printf "Writing kubernetes config ${KUBECONFIG}...\r\n"
 source ../../kubernetes/configure.sh $KUBECONFIG
-echo "Wrote kubernetes config ${KUBECONFIG}.\r\n"
-echo "KUBECONFIG=$KUBECONFIG"
+printf "Wrote kubernetes config ${KUBECONFIG}.\r\n"
+printf "KUBECONFIG=$KUBECONFIG"
 
-echo "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
+printf "Running KUBERNETES '${DEPLOYCONTEXT}' deployment."
 
-echo "Applying kubernetes deployment file ${DEPLOYMENTFILE}\r\n"
+printf "Applying kubernetes deployment file ${DEPLOYMENTFILE}\r\n"
 kubectl apply -f ${DEPLOYMENTFILE}
 
-echo "Applying kubernetes service file ${SERVICEFILE}\r\n"
+printf "Applying kubernetes service file ${SERVICEFILE}\r\n"
 kubectl apply -f ${SERVICEFILE}
 
 sleep 3
 
 HOSTNAME=`../../kubernetes/get-hostname.sh`
-echo "\r\n${APPNAME} hostname is: "
-$HOSTNAME
-echo "\rn"
+printf "\r\n${APPNAME} hostname is: ${HOSTNAME}\r\n"
 
-echo "\r\n${APPNAME} load balancer ip is: "
-../../kubernetes/get-loadbalancer-ip.sh
-echo "\r\nHowever that is uninteresting; see below..."
+printf "\r\n${APPNAME} load balancer ip is: "
+../../kubernetes/get-loadbalancer-ip.sh ${APPNAME}
+printf "\r\nHowever that is uninteresting; see below..."
 DIG=`which dig`
 if [[ -z $DIG ]]; then
-    echo "'dig' not found; use the following command to determine ip address(es) for ${APPNAME}\r\n\r\n"
-    echo "\tdig ${HOSTNAME}\r\n\r\n"
+    printf "'dig' not found; use the following command to determine ip address(es) for ${APPNAME}\r\n\r\n"
+    printf "\tdig ${HOSTNAME}\r\n\r\n"
 else
     dig $HOSTNAME
 fi
