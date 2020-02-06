@@ -27,7 +27,7 @@ fi
 if [[ -z $REMOTEREGISTRY ]]; then
     if [[ $IMAGEREGISTRY = "amazon" ]]; then 
         IMAGEREPOSITORY=$(aws ecr get-login --no-include-email | sed 's|.*https://||')
-        echo "setting image registry: echo $IMAGEREPOSITORY > registries/${IMAGEREGISTRY}"
+        echo "setting image registry: $IMAGEREPOSITORY > registries/${IMAGEREGISTRY}"
         echo $IMAGEREPOSITORY > registries/${IMAGEREGISTRY}
         echo "attempting to create amazon ecr repository if it doesn't exist: ${APPNAME}"
         aws ecr describe-repositories --repository-names ${APPNAME} || aws ecr create-repository --repository-name ${APPNAME}
