@@ -1,1 +1,0 @@
-(function(){dust.register("datepicker",body_0);function body_0(chk,ctx){return chk.write("<span class=\"btn\" id=\"").reference(ctx.get("id"),ctx,"h").write("\" data-date=\"").reference(ctx.get("date"),ctx,"h").write("\" data-date-format=\"").reference(ctx.get("format"),ctx,"h").write("\">  <i class=\"glyphicon glyphicon-calendar\"></i></span>");}return body_0;})();
